@@ -1,3 +1,33 @@
+const Header = (course) => {
+  return (
+    <>
+      <h1>{course.title}</h1>
+    </>
+  );
+};
+
+const Content = ({ title, exercises }) => {
+  return (
+    <>
+      <p>
+        {title} {exercises}
+      </p>
+    </>
+  );
+};
+
+const Total = ({ exercises }) => {
+  const totalSum = exercises.reduce(
+    (accumulator, curr) => accumulator + curr,
+    0
+  );
+  return (
+    <>
+      <p>Number of exercises {totalSum}</p>
+    </>
+  );
+};
+
 const App = () => {
   const course = "Half Stack application development";
   const part1 = "Fundamentals of React";
@@ -9,17 +39,11 @@ const App = () => {
 
   return (
     <div>
-      <h1>{course}</h1>
-      <p>
-        {part1} {exercises1}
-      </p>
-      <p>
-        {part2} {exercises2}
-      </p>
-      <p>
-        {part3} {exercises3}
-      </p>
-      <p>Number of exercises {exercises1 + exercises2 + exercises3}</p>
+      <Header title={course} />
+      <Content title={part1} exercises={exercises1} />
+      <Content title={part2} exercises={exercises2} />
+      <Content title={part3} exercises={exercises3} />
+      <Total exercises={[exercises1, exercises2, exercises3]} />
     </div>
   );
 };
