@@ -14,14 +14,31 @@ const Button = ({ props }) => {
   );
 };
 
-const Part = ({ text, value }) => <p>{text} {value}</p>;
+const Part = ({ text, value }) => (
+  <p>
+    {text} {value}
+  </p>
+);
 
-const Content = ({ props }) => {
+const Statistics = ({ props }) => {
+  const totalSum = props
+    .map((p) => p.counter)
+    .reduce((accumulator, curr) => accumulator + curr, 0);
+
+  const average = totalSum / props.length;
+
+  const positiveProp =
+    (100 * props.find((p) => p.text === "good").counter) / totalSum;
+
+  console.log(positiveProp);
   return (
     <>
       {props.map(({ text, counter }, index) => (
         <Part key={index} text={text} value={counter} />
       ))}
+      <Part text={"all"} value={totalSum} />
+      <Part text={"average"} value={average} />
+      <Part text={"positive"} value={`${positiveProp} %`} />
     </>
   );
 };
@@ -55,7 +72,7 @@ const App = () => {
       <Header title={"give feedback"} />
       <Button props={feedback} />
       <Header title={"statistics"} />
-      <Content props={feedback} />
+      <Statistics props={feedback} />
     </div>
   );
 };
