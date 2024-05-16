@@ -10,10 +10,11 @@ const Button = ({ onClick, text }) => {
   );
 };
 
-const Part = ({ text, value }) => (
-  <p>
-    {text} {value}
-  </p>
+const StatisticLine = ({ text, value }) => (
+  <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
 );
 
 const Statistics = ({ props }) => {
@@ -28,14 +29,16 @@ const Statistics = ({ props }) => {
 
   console.log(positiveProp);
   return (
-    <>
-      {props.map(({ text, counter }, index) => (
-        <Part key={index} text={text} value={counter} />
-      ))}
-      <Part text={"all"} value={totalSum} />
-      <Part text={"average"} value={average} />
-      <Part text={"positive"} value={`${positiveProp} %`} />
-    </>
+    <table>
+      <tbody>
+        {props.map(({ text, counter }, index) => (
+          <StatisticLine key={index} text={text} value={counter} />
+        ))}
+        <StatisticLine text={"all"} value={totalSum} />
+        <StatisticLine text={"average"} value={average} />
+        <StatisticLine text={"positive"} value={`${positiveProp} %`} />
+      </tbody>
+    </table>
   );
 };
 
