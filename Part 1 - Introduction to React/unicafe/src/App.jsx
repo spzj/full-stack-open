@@ -2,14 +2,10 @@ import { useState } from "react";
 
 const Header = ({ title }) => <h1>{title}</h1>;
 
-const Button = ({ props }) => {
+const Button = ({ onClick, text }) => {
   return (
     <>
-      {props.map(({ onClick, text }, index) => (
-        <button key={index} onClick={onClick}>
-          {text}
-        </button>
-      ))}
+      <button onClick={onClick}>{text}</button>
     </>
   );
 };
@@ -49,28 +45,31 @@ const App = () => {
   const [neutralCounter, setNeutral] = useState(0);
   const [badCounter, setBad] = useState(0);
 
+  const handleGoodClick = () => setGood(goodCounter + 1);
+  const handleNeutralClick = () => setNeutral(neutralCounter + 1);
+  const handleBadClick = () => setBad(badCounter + 1);
+
   const feedback = [
     {
       text: "good",
       counter: goodCounter,
-      onClick: () => setGood(goodCounter + 1),
     },
     {
       text: "neutral",
       counter: neutralCounter,
-      onClick: () => setNeutral(neutralCounter + 1),
     },
     {
       text: "bad",
       counter: badCounter,
-      onClick: () => setBad(badCounter + 1),
     },
   ];
 
   return (
     <div>
       <Header title={"give feedback"} />
-      <Button props={feedback} />
+      <Button text="good" onClick={handleGoodClick} />
+      <Button text="neutral" onClick={handleNeutralClick} />
+      <Button text="bad" onClick={handleBadClick} />
       <Header title={"statistics"} />
       <Statistics props={feedback} />
     </div>
