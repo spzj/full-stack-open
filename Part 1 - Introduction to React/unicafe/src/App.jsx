@@ -17,9 +17,9 @@ const StatisticLine = ({ text, value }) => (
   </tr>
 );
 
-const Statistics = ({ props }) => {
-  const totalSum = props
-    .map((p) => p.counter)
+const Statistics = ({ counters }) => {
+  const totalSum = counters
+    .map((c) => c.counter)
     .reduce((accumulator, curr) => accumulator + curr, 0);
 
   if (totalSum == 0) {
@@ -29,15 +29,15 @@ const Statistics = ({ props }) => {
       </>
     );
   } else {
-    const average = totalSum / props.length;
+    const average = totalSum / counters.length;
 
     const positiveProp =
-      (100 * props.find((p) => p.text === "good").counter) / totalSum;
+      (100 * counters.find((p) => p.text === "good").counter) / totalSum;
 
     return (
       <table>
         <tbody>
-          {props.map(({ text, counter }, index) => (
+          {counters.map(({ text, counter }, index) => (
             <StatisticLine key={index} text={text} value={counter} />
           ))}
           <StatisticLine text={"all"} value={totalSum} />
@@ -59,7 +59,7 @@ const App = () => {
   const handleNeutralClick = () => setNeutral(neutralCounter + 1);
   const handleBadClick = () => setBad(badCounter + 1);
 
-  const feedback = [
+  const counters = [
     {
       text: "good",
       counter: goodCounter,
@@ -81,7 +81,7 @@ const App = () => {
       <Button text="neutral" onClick={handleNeutralClick} />
       <Button text="bad" onClick={handleBadClick} />
       <Header title={"statistics"} />
-      <Statistics props={feedback} />
+      <Statistics counters={counters} />
     </div>
   );
 };
