@@ -1,8 +1,11 @@
-# React + Vite
+# Unicafe
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A basic react web application for collecting customer feedback for the student restaurant of the University of Helsinki, [Unicafe](https://unicafe.fi/).
 
-Currently, two official plugins are available:
+## App default state:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<img src="public/app_before_clicks.JPG" alt="Unicafe Web Application before clicks" width="300px" height="auto" />
+
+## App after user clicks on buttons:
+
+<img src="public/app_after_clicks.JPG" alt="Unicafe Web Application after clicks" width="300px" height="auto" />
