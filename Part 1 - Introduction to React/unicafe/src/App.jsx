@@ -22,24 +22,31 @@ const Statistics = ({ props }) => {
     .map((p) => p.counter)
     .reduce((accumulator, curr) => accumulator + curr, 0);
 
-  const average = totalSum / props.length;
+  if (totalSum == 0) {
+    return (
+      <>
+        <p>No feedback given</p>
+      </>
+    );
+  } else {
+    const average = totalSum / props.length;
 
-  const positiveProp =
-    (100 * props.find((p) => p.text === "good").counter) / totalSum;
+    const positiveProp =
+      (100 * props.find((p) => p.text === "good").counter) / totalSum;
 
-  console.log(positiveProp);
-  return (
-    <table>
-      <tbody>
-        {props.map(({ text, counter }, index) => (
-          <StatisticLine key={index} text={text} value={counter} />
-        ))}
-        <StatisticLine text={"all"} value={totalSum} />
-        <StatisticLine text={"average"} value={average} />
-        <StatisticLine text={"positive"} value={`${positiveProp} %`} />
-      </tbody>
-    </table>
-  );
+    return (
+      <table>
+        <tbody>
+          {props.map(({ text, counter }, index) => (
+            <StatisticLine key={index} text={text} value={counter} />
+          ))}
+          <StatisticLine text={"all"} value={totalSum} />
+          <StatisticLine text={"average"} value={average} />
+          <StatisticLine text={"positive"} value={`${positiveProp} %`} />
+        </tbody>
+      </table>
+    );
+  }
 };
 
 const App = () => {
