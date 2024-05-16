@@ -39,24 +39,42 @@ const App = () => {
   const [selected, setSelected] = useState(0);
 
   const handleSelectedClick = () => {
-    const newIndex = Math.floor(Math.random() * numAnecdotes);
+    let newIndex = selected;
+
+    // Prevents the same index to be generated
+    while (newIndex == selected) {
+        newIndex = Math.floor(Math.random() * numAnecdotes)
+    }
+
     setSelected(newIndex);
   };
 
-  const [voteCounter, setVote] = useState(Array(numAnecdotes).fill(0));
+  const [vote, setVote] = useState({
+    voteCounter: Array(numAnecdotes).fill(0),
+    maxVoteIndex: 0,
+  });
 
   const handleVoteClick = () => {
-    const newVoteCounter = [...voteCounter];
+    const newVoteCounter = [...vote.voteCounter];
     newVoteCounter[selected]++;
-    setVote(newVoteCounter);
+
+    const newMaxVotesIndex = newVoteCounter.indexOf(Math.max(...newVoteCounter));
+
+    const newVote = {
+        voteCounter: newVoteCounter,
+        maxVoteIndex: newMaxVotesIndex
+    }
+    setVote(newVote);
   };
 
   return (
     <div>
       <Header title={"Anecdote of the day"} />
-      <Anecdote text={anecdotes[selected]} votes={voteCounter[selected]} />
+      <Anecdote text={anecdotes[selected]} votes={vote.voteCounter[selected]} />
       <Button onClick={handleVoteClick} text={"vote"} />
       <Button onClick={handleSelectedClick} text={"next anecdote"} />
+      <Header title={"Anecdote with most votes"} />
+      <Anecdote text={anecdotes[vote.maxVoteIndex]} votes={vote.voteCounter[vote.maxVoteIndex]} />
     </div>
   );
 };
