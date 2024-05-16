@@ -1,10 +1,25 @@
 import { useState } from "react";
 
-const Button = ({ onClick, text }) => {
+const Header = ({ title }) => (
+  <div>
+    <h1>{title}</h1>
+  </div>
+);
+
+const Anecdote = ({ text, votes }) => {
   return (
     <div>
-      <button onClick={onClick}>{text}</button>
+      <p>{text}</p>
+      <p>has {votes} votes</p>
     </div>
+  );
+};
+
+const Button = ({ onClick, text }) => {
+  return (
+    <>
+      <button onClick={onClick}>{text}</button>
+    </>
   );
 };
 
@@ -22,14 +37,25 @@ const App = () => {
 
   const numAnecdotes = anecdotes.length;
   const [selected, setSelected] = useState(0);
+
   const handleSelectedClick = () => {
     const newIndex = Math.floor(Math.random() * numAnecdotes);
     setSelected(newIndex);
   };
 
+  const [voteCounter, setVote] = useState(Array(numAnecdotes).fill(0));
+
+  const handleVoteClick = () => {
+    const newVoteCounter = [...voteCounter];
+    newVoteCounter[selected]++;
+    setVote(newVoteCounter);
+  };
+
   return (
     <div>
-      {anecdotes[selected]}
+      <Header title={"Anecdote of the day"} />
+      <Anecdote text={anecdotes[selected]} votes={voteCounter[selected]} />
+      <Button onClick={handleVoteClick} text={"vote"} />
       <Button onClick={handleSelectedClick} text={"next anecdote"} />
     </div>
   );
