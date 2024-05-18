@@ -19,8 +19,8 @@ const Part = ({ name, exercises }) => {
 const Content = ({ parts }) => {
   return (
     <div>
-      {parts.map((part, index) => (
-        <Part key={index} name={part.name} exercises={part.exercises} />
+      {parts.map(({ id, name, exercises }) => (
+        <Part key={id} name={name} exercises={exercises} />
       ))}
     </div>
   );
@@ -42,14 +42,17 @@ const App = () => {
     name: "Half Stack application development",
     parts: [
       {
+        id: 1,
         name: "Fundamentals of React",
         exercises: 10,
       },
       {
+        id: 2,
         name: "Using props to pass data",
         exercises: 7,
       },
       {
+        id: 3,
         name: "State of a component",
         exercises: 14,
       },
