@@ -65,7 +65,7 @@ const App = () => {
   };
 
   const handleFilterChange = (event) => {
-    const newFilter = event.target.value
+    const newFilter = event.target.value;
     setFilter(newFilter);
 
     const filteredPersons = persons.filter((p) =>
@@ -96,7 +96,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h3>Numbers</h3>
-      <Persons filteredPersons={filteredPersons} />
+      <Persons filteredPersons={filter === "" ? persons : filteredPersons} />
     </div>
   );
 };
