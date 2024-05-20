@@ -7,6 +7,14 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault();
     // console.log("button clicked", event.target);
+
+    for (const p of persons) {
+      if (newName === p.name) {
+        alert(`${newName} is already added to phonebook`);
+        return;
+      }
+    }
+
     const newPerson = {
       id: persons.length + 1,
       name: newName,
