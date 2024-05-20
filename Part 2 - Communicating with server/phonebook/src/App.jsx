@@ -11,7 +11,7 @@ const App = () => {
     { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
   ]);
 
-  const [newSearch, setNewSearch] = useState("");
+  const [filter, setFilter] = useState("");
   const [filteredPersons, setFilteredPersons] = useState(persons);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
@@ -64,11 +64,12 @@ const App = () => {
     setNewNumber("");
   };
 
-  const handleSearchChange = (event) => {
-    setNewSearch(event.target.value);
+  const handleFilterChange = (event) => {
+    const newFilter = event.target.value
+    setFilter(newFilter);
 
     const filteredPersons = persons.filter((p) =>
-      p.name.toLowerCase().includes(event.target.value.toLowerCase())
+      p.name.toLowerCase().includes(newFilter.toLowerCase())
     );
 
     setFilteredPersons(filteredPersons);
@@ -85,7 +86,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter newSearch={newSearch} handleSearchChange={handleSearchChange} />
+      <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h3>Add a new</h3>
       <PersonForm
         addPerson={addPerson}
