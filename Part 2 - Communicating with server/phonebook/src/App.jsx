@@ -5,6 +5,8 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 
+const server = "http://localhost:3001/persons";
+
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [filter, setFilter] = useState("");
@@ -13,14 +15,13 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((response) => {
+    axios.get(server).then((response) => {
       setPersons(response.data);
     });
   }, []);
 
   const addPerson = (event) => {
     event.preventDefault();
-    // console.log("button clicked", event.target);
 
     const isNameEmpty = newName === "";
     const isNumberEmpty = newNumber === "";
@@ -56,14 +57,18 @@ const App = () => {
     }
 
     const newPerson = {
-      id: persons.length + 1,
+      id: `${persons.length + 1}`,
       name: newName,
       number: newNumber,
     };
 
-    setPersons(persons.concat(newPerson));
-    setNewName("");
-    setNewNumber("");
+    axios.post(server, newPerson).then((response) => {
+      setPersons(persons.concat(response.data));
+
+      // Reset form inputs
+      setNewName("");
+      setNewNumber("");
+    });
   };
 
   const handleFilterChange = (event) => {
