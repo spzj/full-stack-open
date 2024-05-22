@@ -18,41 +18,51 @@ const App = () => {
     });
   }, []);
 
-  const addPerson = (event) => {
-    event.preventDefault();
-
+  /**
+   * Handles errors during form submission of new person.
+   * @returns {boolean} True if there are errors, false otherwise.
+   */
+  const handleFormErrors = () => {
     const isNameEmpty = newName === "";
     const isNumberEmpty = newNumber === "";
 
     if (isNameEmpty && isNumberEmpty) {
       alert("name and number fields cannot be empty");
-      return;
+      return true;
     } else if (isNameEmpty) {
       alert("name field cannot be empty");
-      return;
+      return true;
     } else if (isNumberEmpty) {
       alert("number field cannot be empty");
-      return;
+      return true;
     }
 
     if (!/^[0-9\s()+-]+$/.test(newNumber)) {
       alert(
         "number field can only contain contain digits [0-9], dash [-], plus [+], parentheses [()] and whitespaces."
       );
-      return;
+      return true;
     }
 
     for (const p of persons) {
       if (newName === p.name) {
         alert(`${newName} is already added to phonebook`);
-        return;
+        return true;
       } else if (newNumber === p.number) {
         alert(
           `${newNumber} is already added to phonebook under the contact: ${p.name}`
         );
-        return;
+        return true;
       }
     }
+
+    return false;
+  };
+
+  const addPerson = (event) => {
+    event.preventDefault();
+
+    if (handleFormErrors()) return;
 
     const newPerson = {
       id: `${persons.length + 1}`,
