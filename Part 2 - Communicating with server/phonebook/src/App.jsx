@@ -13,9 +13,12 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
 
   useEffect(() => {
-    personsService.getAll().then((initialPersons) => {
-      setPersons(initialPersons);
-    });
+    personsService
+      .getAll()
+      .then((initialPersons) => {
+        setPersons(initialPersons);
+      })
+      .catch(() => alert("unable to fetch persons from server"));
   }, []);
 
   /**
@@ -70,13 +73,27 @@ const App = () => {
       number: newNumber,
     };
 
-    personsService.create(newPerson).then((returnedPerson) => {
-      setPersons(persons.concat(returnedPerson));
+    personsService
+      .create(newPerson)
+      .then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
 
-      // Reset form inputs
-      setNewName("");
-      setNewNumber("");
-    });
+        // Reset form inputs
+        setNewName("");
+        setNewNumber("");
+      })
+      .catch(() => alert(`unable to add ${newPerson.name}`));
+  };
+
+  const handleDeleteClick = ({ id, name }) => {
+    if (window.confirm(`Delete ${name}?`)) {
+      personsService
+        .remove(id)
+        .then(() => {   
+          setPersons(persons.filter((p) => p.id !== id));
+        })
+        .catch(() => alert(`unable to delete ${name}`));
+    }
   };
 
   const handleFilterChange = (event) => {
@@ -111,7 +128,10 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h3>Numbers</h3>
-      <Persons filteredPersons={filter === "" ? persons : filteredPersons} />
+      <Persons
+        filteredPersons={filter === "" ? persons : filteredPersons}
+        handleDeleteClick={handleDeleteClick}
+      />
     </div>
   );
 };
