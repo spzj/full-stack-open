@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 
 import Filter from "./components/Filter";
+import Notification from "./components/Notification";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import NotificationType from "./constants/NotificationType";
 import personsService from "./services/persons";
 
 const App = () => {
@@ -11,6 +13,16 @@ const App = () => {
   const [filteredPersons, setFilteredPersons] = useState(persons);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const [notifMessage, setNotifMessage] = useState(null);
+  const [notifType, setNotifType] = useState(NotificationType.NORMAL);
+
+  const showNotification = (type, message, duration = 3000) => {
+    setNotifType(type);
+    setNotifMessage(message);
+    setTimeout(() => {
+      setNotifMessage(null);
+    }, duration);
+  };
 
   useEffect(() => {
     personsService
@@ -18,7 +30,13 @@ const App = () => {
       .then((initialPersons) => {
         setPersons(initialPersons);
       })
-      .catch(() => alert("unable to fetch persons from server"));
+      .catch((error) => {
+        console.log(error);
+        showNotification(
+          NotificationType.ERROR,
+          "Unable to fetch persons from server."
+        );
+      });
   }, []);
 
   /**
@@ -30,26 +48,31 @@ const App = () => {
     const isNumberEmpty = newNumber === "";
 
     if (isNameEmpty && isNumberEmpty) {
-      alert("name and number fields cannot be empty");
+      showNotification(
+        NotificationType.ERROR,
+        "Name and number fields cannot be empty."
+      );
       return true;
     } else if (isNameEmpty) {
-      alert("name field cannot be empty");
+      showNotification(NotificationType.ERROR, "Name field cannot be empty.");
       return true;
     } else if (isNumberEmpty) {
-      alert("number field cannot be empty");
+      showNotification(NotificationType.ERROR, "Number field cannot be empty.");
       return true;
     }
 
     if (!/^[0-9\s()+-]+$/.test(newNumber)) {
-      alert(
-        "number field can only contain contain digits [0-9], dash [-], plus [+], parentheses [()] and whitespaces."
+      showNotification(
+        NotificationType.ERROR,
+        "Number field can only contain contain digits [0-9], dash [-], plus [+], parentheses [()] and whitespaces."
       );
       return true;
     }
 
     if (persons.some((p) => p.number === newNumber)) {
-      alert(
-        `${newNumber} is already added to phonebook under the contact: ${persons.find((p) => p.number === newNumber).name}`
+      showNotification(
+        NotificationType.ERROR,
+        `${newNumber} is already added to phonebook under the contact: ${persons.find((p) => p.number === newNumber).name}.`
       );
       return true;
     }
@@ -89,11 +112,19 @@ const App = () => {
             setPersons(
               persons.map((p) => (p.name === newName ? returnedPerson : p))
             );
+            showNotification(
+              NotificationType.SUCCESS,
+              `Updated number for ${newName} in phonebook.`
+            );
             resetFormInputs();
           })
-          .catch(() =>
-            alert(`Unable to update ${newPerson.name} in phonebook.`)
-          );
+          .catch((error) => {
+            console.log(error);
+            showNotification(
+              NotificationType.ERROR,
+              `Unable to update ${newPerson.name} in phonebook.`
+            );
+          });
       }
     } else {
       const newPerson = {
@@ -106,9 +137,19 @@ const App = () => {
         .create(newPerson)
         .then((returnedPerson) => {
           setPersons(persons.concat(returnedPerson));
+          showNotification(
+            NotificationType.SUCCESS,
+            `Added ${newName} in phonebook.`
+          );
           resetFormInputs();
         })
-        .catch(() => alert(`Unable to add ${newPerson.name} to phonebook.`));
+        .catch((error) => {
+          console.log(error);
+          showNotification(
+            NotificationType.ERROR,
+            `Unable to add ${newPerson.name} to phonebook.`
+          );
+        });
     }
   };
 
@@ -118,8 +159,15 @@ const App = () => {
         .remove(id)
         .then(() => {
           setPersons(persons.filter((p) => p.id !== id));
+          showNotification(
+            NotificationType.SUCCESS,
+            `Deleted ${name} from phonebook.`
+          );
         })
-        .catch(() => alert(`unable to delete ${name}`));
+        .catch((error) => {
+          console.log(error);
+          showNotification(NotificationType.ERROR, `Unable to delete ${name}.`);
+        });
     }
   };
 
@@ -145,6 +193,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notifMessage} type={notifType} />
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h3>Add a new</h3>
       <PersonForm
