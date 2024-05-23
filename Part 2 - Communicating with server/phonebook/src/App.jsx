@@ -47,16 +47,11 @@ const App = () => {
       return true;
     }
 
-    for (const p of persons) {
-      if (newName === p.name) {
-        alert(`${newName} is already added to phonebook`);
-        return true;
-      } else if (newNumber === p.number) {
-        alert(
-          `${newNumber} is already added to phonebook under the contact: ${p.name}`
-        );
-        return true;
-      }
+    if (persons.some((p) => p.number === newNumber)) {
+      alert(
+        `${newNumber} is already added to phonebook under the contact: ${persons.find((p) => p.number === newNumber).name}`
+      );
+      return true;
     }
 
     return false;
@@ -67,29 +62,61 @@ const App = () => {
 
     if (handleFormErrors()) return;
 
-    const newPerson = {
-      id: `${persons.length + 1}`,
-      name: newName,
-      number: newNumber,
+    const handleConfirmation = (name) => {
+      return confirm(
+        `${name} is already added to the phonebook, replace the old number with a new one?`
+      );
     };
 
-    personsService
-      .create(newPerson)
-      .then((returnedPerson) => {
-        setPersons(persons.concat(returnedPerson));
+    const resetFormInputs = () => {
+      setNewName("");
+      setNewNumber("");
+    };
 
-        // Reset form inputs
-        setNewName("");
-        setNewNumber("");
-      })
-      .catch(() => alert(`unable to add ${newPerson.name}`));
+    const foundPerson = persons.find((p) => p.name === newName);
+
+    if (foundPerson) {
+      if (handleConfirmation(newName)) {
+        const newPerson = {
+          id: `${foundPerson.id}`,
+          name: newName,
+          number: newNumber,
+        };
+
+        personsService
+          .update(newPerson)
+          .then((returnedPerson) => {
+            setPersons(
+              persons.map((p) => (p.name === newName ? returnedPerson : p))
+            );
+            resetFormInputs();
+          })
+          .catch(() =>
+            alert(`Unable to update ${newPerson.name} in phonebook.`)
+          );
+      }
+    } else {
+      const newPerson = {
+        id: `${persons.length + 1}`,
+        name: newName,
+        number: newNumber,
+      };
+
+      personsService
+        .create(newPerson)
+        .then((returnedPerson) => {
+          setPersons(persons.concat(returnedPerson));
+          resetFormInputs();
+        })
+        .catch(() => alert(`Unable to add ${newPerson.name} to phonebook.`));
+    }
   };
 
   const handleDeleteClick = ({ id, name }) => {
-    if (window.confirm(`Delete ${name}?`)) {
+    if (confirm(`Delete ${name}?`)) {
       personsService
         .remove(id)
-        .then(() => {   
+        .then(() => {
           setPersons(persons.filter((p) => p.id !== id));
         })
         .catch(() => alert(`unable to delete ${name}`));
