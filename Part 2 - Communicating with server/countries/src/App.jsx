@@ -5,17 +5,20 @@ import Countries from "./components/Countries";
 import CountryDetails from "./components/CountryDetails";
 import Filter from "./components/Filter";
 
-const apiUrl = "https://studies.cs.helsinki.fi/restcountries/api/all";
+const COUNTRY_API_URL = "https://studies.cs.helsinki.fi/restcountries/api/all";
+const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather";
+const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_KEY; // must be prefixed with VITE_
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [filter, setFilter] = useState("");
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState(countries);
+  const [weather, setWeather] = useState(null);
 
   useEffect(() => {
     axios
-      .get(apiUrl)
+      .get(COUNTRY_API_URL)
       .then((response) => {
         setCountries(response.data);
         setIsLoaded(true);
@@ -23,20 +26,39 @@ const App = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, []); // Runs only on first render
+
+  useEffect(() => {
+    if (filteredCountries.length === 1) {
+      const [lat, lon] = filteredCountries[0].latlng;
+      console.log(WEATHER_API_KEY);
+
+      axios
+        .get(
+          `${WEATHER_API_URL}?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`
+        )
+        .then((response) => {
+          console.log(response.data);
+          setWeather(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [filteredCountries]);
 
   const handleFilterChange = (event) => {
     const newFilter = event.target.value;
     setFilter(newFilter); // allow text input to be stored in the state
 
-    const filteredCountries =
+    const newFilteredCountries =
       newFilter == ""
         ? []
         : countries.filter((c) =>
             c.name.common.toLowerCase().includes(newFilter.toLowerCase())
           );
 
-    setFilteredCountries(filteredCountries);
+    setFilteredCountries(newFilteredCountries);
   };
 
   const handleShowClick = (country) => {
@@ -58,6 +80,7 @@ const App = () => {
       />
       <CountryDetails
         country={filteredCountries.length === 1 ? filteredCountries[0] : null}
+        weather={weather}
       />
     </div>
   );
