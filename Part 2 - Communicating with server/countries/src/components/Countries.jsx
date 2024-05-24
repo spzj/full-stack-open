@@ -1,4 +1,4 @@
-const Countries = ({ countries }) => {
+const Countries = ({ countries, handleShowClick }) => {
   if (countries.length === 1) {
     return null;
   } else if (countries.length > 10) {
@@ -7,7 +7,18 @@ const Countries = ({ countries }) => {
     return (
       <ul className="countryList">
         {countries.map((country) => (
-          <li key={country.name.common}>{country.name.common}</li>
+          <span
+            key={country.name.common}
+            style={{ display: "flex", alignItems: "center", margin: "5px auto"}}
+          >
+            <li>{country.name.common}</li>
+            <button
+              onClick={() => handleShowClick(country)}
+              style={{ marginLeft: "10px" }}
+            >
+              show
+            </button>
+          </span>
         ))}
       </ul>
     );

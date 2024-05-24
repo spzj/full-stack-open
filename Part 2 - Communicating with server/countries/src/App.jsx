@@ -39,6 +39,12 @@ const App = () => {
     setFilteredCountries(filteredCountries);
   };
 
+  const handleShowClick = (country) => {
+    setFilteredCountries(
+      filteredCountries.filter((c) => c.name.common === country.name.common)
+    );
+  };
+
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
@@ -46,7 +52,10 @@ const App = () => {
   return (
     <div>
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
-      <Countries countries={filteredCountries} />
+      <Countries
+        countries={filteredCountries}
+        handleShowClick={handleShowClick}
+      />
       <CountryDetails
         country={filteredCountries.length === 1 ? filteredCountries[0] : null}
       />
