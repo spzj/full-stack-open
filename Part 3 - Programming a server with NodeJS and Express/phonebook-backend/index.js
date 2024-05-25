@@ -1,7 +1,26 @@
 const express = require("express");
+const morgan = require("morgan");
+
 const app = express();
 
 app.use(express.json()); // Middleware to parse JSON data
+
+const logger = morgan(function (tokens, req, res) {
+  // default tiny format
+  const items = [
+    tokens.method(req, res),
+    tokens.url(req, res),
+    tokens.status(req, res),
+    tokens.res(req, res, "content-length"),
+    "-",
+    tokens["response-time"](req, res),
+    "ms",
+  ].join(" ");
+
+  return items + (req.method === "POST" ? ` ${JSON.stringify(req.body)}` : "");
+});
+
+app.use(logger); // Middleware to log requests
 
 let persons = [
   {
