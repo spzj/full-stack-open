@@ -1,0 +1,30 @@
+// Missing name
+POST http://localhost:3001/api/persons  HTTP/1.1
+content-type: application/json
+
+{
+    "name": "",
+    "number": "012-3456789"
+}
+
+###
+
+// Missing number
+POST http://localhost:3001/api/persons  HTTP/1.1
+content-type: application/json
+
+{
+    "name": "John Walker",
+    "number": ""
+}
+
+###
+
+// Both name and number present; send request again to test existing name in phonebook
+POST http://localhost:3001/api/persons  HTTP/1.1
+content-type: application/json
+
+{
+    "name": "John Walker",
+    "number": "012-3456789"
+}
