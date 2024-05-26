@@ -16,9 +16,25 @@ mongoose
   });
 
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+  name: {
+    type: String,
+    minLength: 3,
+    required: [true, "Name field cannot be empty."],
+  },
+  number: {
+    type: String,
+    validate: {
+      validator: (v) => {
+        return /^\d{2,3}-\d{6,}$/.test(v);
+      },
+      message: (props) =>
+        `${props.value} is not a valid phone number. A valid number should be at least 8 digits long in the format of XX-XXXXXX or XXX-XXXXX.`,
+    },
+    required: [true, "Number field cannot be empty."],
+  },
 });
+
+mongoose.SchemaTypes.String.set("trim", true);
 
 personSchema.set("toJSON", {
   transform: (document, returnedObject) => {
