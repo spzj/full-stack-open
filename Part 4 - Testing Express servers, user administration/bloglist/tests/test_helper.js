@@ -15,6 +15,27 @@ const initialBlogs = [
   },
 ]
 
+const newBlog = {
+  title: 'Canonical string reduction',
+  author: 'Edsger W. Dijkstra',
+  url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
+  likes: 12,
+}
+
+const nonExistingId = async () => {
+  const blog = new Blog({
+    title: 'Temporary blog',
+    author: 'Temporary author',
+    url: 'someurl',
+    likes: 0,
+  })
+
+  await blog.save()
+  await blog.deleteOne()
+
+  return blog._id.toString()
+}
+
 const blogsInDb = async () => {
   const blogs = await Blog.find({})
   return blogs.map((blog) => blog.toJSON())
@@ -22,5 +43,7 @@ const blogsInDb = async () => {
 
 module.exports = {
   initialBlogs,
+  newBlog,
+  nonExistingId,
   blogsInDb,
 }
