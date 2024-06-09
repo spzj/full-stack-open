@@ -1,18 +1,19 @@
 const Blog = require('../models/blog')
 const User = require('../models/user')
 
+// passwords are 123 for both
 const initialUsers = [
   {
     username: 'testuser1',
     name: 'testuser1',
     passwordHash:
-      '$2b$10$abjhgD29HtujQ5Wd6p9m4uAp7QLUtxE4n3IFq6QEF5kePRMTbCig6',
+      '$2b$10$uyRc75Ov6eNHkXoKQBgd0.l/APkakBMaMJLvUlvabfINSQ2aqnRda',
   },
   {
     username: 'testuser2',
     name: 'testuser2',
     passwordHash:
-      '$2b$10$/htxmdgrBirfDGOVStMTI.6JXADPEhF5c.jTztYxi5dJVPKWyLCcq',
+      '$2b$10$Hl/8IrfL2bVMGNMHJhvFIOuSquvKfRBH4.LMj.4kUJsGMnDWi1VNC',
   },
 ]
 
