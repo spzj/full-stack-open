@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Filter from "./components/Filter";
+import Modal from "./components/Modal";
 import Notification from "./components/Notification";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
@@ -15,6 +16,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [notifMessage, setNotifMessage] = useState(null);
   const [notifType, setNotifType] = useState(NotificationType.NORMAL);
+  const [openModal, setOpenModal] = useState(false);
 
   const showNotification = (type, message, duration = 3000) => {
     setNotifType(type);
@@ -171,6 +173,13 @@ const App = () => {
     }
   };
 
+  const handleCreateClick = (event) => {
+    event.preventDefault();
+    setOpenModal(true);
+  };
+
+  const closeModal = () => setOpenModal(false);
+
   const handleFilterChange = (event) => {
     const newFilter = event.target.value;
     setFilter(newFilter);
@@ -191,23 +200,33 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h2>Phonebook</h2>
-      <Notification message={notifMessage} type={notifType} />
-      <Filter filter={filter} handleFilterChange={handleFilterChange} />
-      <h3>Add a new</h3>
-      <PersonForm
-        addPerson={addPerson}
-        newName={newName}
-        handleNameChange={handleNameChange}
-        newNumber={newNumber}
-        handleNumberChange={handleNumberChange}
+    <div className="container md:w-[80%]">
+      <h2 className="mt-5 mb-10 text-4xl text-center font-bold tracking-tight text-indigo-600">
+        Phonebook
+      </h2>
+      <Filter
+        filter={filter}
+        handleFilterChange={handleFilterChange}
+        handleCreateClick={handleCreateClick}
       />
-      <h3>Numbers</h3>
+
       <Persons
         filteredPersons={filter === "" ? persons : filteredPersons}
         handleDeleteClick={handleDeleteClick}
       />
+      <Modal openModal={openModal} closeModal={closeModal}>
+        <h3 className="mt-1 text-xl font-bold tracking-tight text-indigo-600">
+          Add contact
+        </h3>
+        <PersonForm
+          addPerson={addPerson}
+          newName={newName}
+          handleNameChange={handleNameChange}
+          newNumber={newNumber}
+          handleNumberChange={handleNumberChange}
+        />
+        <Notification message={notifMessage} type={notifType} />
+      </Modal>
     </div>
   );
 };
