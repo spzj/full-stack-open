@@ -76,7 +76,9 @@ app.post('/api/persons', (request, response, next) => {
 
   if (!body.name || !body.number) {
     // 400 Bad Request
-    return response.status(400).json({ error: 'Name and Number fields cannot be empty.' })
+    return response
+      .status(400)
+      .json({ error: 'Name and Number fields cannot be empty.' })
   }
 
   const person = new Person({

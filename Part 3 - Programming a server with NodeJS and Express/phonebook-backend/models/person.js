@@ -19,7 +19,7 @@ const personSchema = new mongoose.Schema({
   name: {
     type: String,
     minLength: 3,
-    required: [true, 'Name field cannot be empty.'],
+    required: [true, 'Name field cannot be empty.']
   },
   number: {
     type: String,
@@ -30,7 +30,7 @@ const personSchema = new mongoose.Schema({
       message: (props) =>
         `${props.value} is not a valid phone number. A valid number should be at least 8 digits long in the format of XX-XXXXXX or XXX-XXXXX.`,
     },
-    required: [true, 'Number field cannot be empty.'],
+    required: [true, 'Number field cannot be empty.']
   },
 })
 
