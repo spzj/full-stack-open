@@ -1,6 +1,6 @@
 const Filter = ({ filter, handleFilterChange, handleCreateClick }) => {
   return (
-    <div className="mt-4 ml-6 mr-6">
+    <div className="mt-4">
       <form onSubmit={handleCreateClick} className="flex items-center justify-center w-full">
         <div className="relative w-full">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">

@@ -14,29 +14,25 @@ const PersonForm = ({
             className="block text-sm font-medium leading-6 text-gray-900"
           >
             Name
-          </label>
-          <div>
             <input
               value={newName}
               onChange={handleNameChange}
               className="w-full text-base bg-white border border-slate-300 rounded-md shadow-sm focus:outline-indigo-300 focus:ring-1 py-1.5 pl-2"
             />
-          </div>
+          </label>
         </div>
 
         <div>
           <label
-            htmlFor="password"
+            htmlFor="number"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
             Number
-            <div>
-              <input
-                value={newNumber}
-                onChange={handleNumberChange}
-                className="w-full text-base bg-white border border-slate-300 rounded-md shadow-sm focus:outline-indigo-300 focus:ring-1 py-1.5 pl-2"
-              />
-            </div>
+            <input
+              value={newNumber}
+              onChange={handleNumberChange}
+              className="w-full text-base bg-white border border-slate-300 rounded-md shadow-sm focus:outline-indigo-300 focus:ring-1 py-1.5 pl-2"
+            />
           </label>
         </div>
 

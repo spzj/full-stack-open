@@ -1,6 +1,6 @@
 const Persons = ({ filteredPersons, handleDeleteClick }) => {
   return (
-    <div className="mt-4 ml-6 mr-6 flex flex-col justify-center max-h-screen overflow-y-auto">
+    <div className="mt-4 flex flex-col justify-center max-h-screen overflow-y-auto">
       {filteredPersons.map((p) => (
         <div key={p.id} className="mb-1 flex items-center justify-between bg-white hover:bg-slate-100 border border-gray-200 rounded-md shadow-md">
           <div>

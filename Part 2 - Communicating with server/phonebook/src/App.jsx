@@ -36,7 +36,7 @@ const App = () => {
         console.log(error);
         showNotification(
           NotificationType.ERROR,
-          "Unable to fetch persons from server."
+          "Unable to fetch contacts from server."
         );
       });
   }, []);
@@ -204,16 +204,18 @@ const App = () => {
       <h2 className="mt-5 mb-10 text-4xl text-center font-bold tracking-tight text-indigo-600">
         Phonebook
       </h2>
-      <Filter
-        filter={filter}
-        handleFilterChange={handleFilterChange}
-        handleCreateClick={handleCreateClick}
-      />
-
-      <Persons
-        filteredPersons={filter === "" ? persons : filteredPersons}
-        handleDeleteClick={handleDeleteClick}
-      />
+      <div className="ml-6 mr-6">
+        <Filter
+          filter={filter}
+          handleFilterChange={handleFilterChange}
+          handleCreateClick={handleCreateClick}
+        />
+        {!openModal && <Notification message={notifMessage} type={notifType} />}
+        <Persons
+          filteredPersons={filter === "" ? persons : filteredPersons}
+          handleDeleteClick={handleDeleteClick}
+        />
+      </div>
       <Modal openModal={openModal} closeModal={closeModal}>
         <h3 className="mt-1 text-xl font-bold tracking-tight text-indigo-600">
           Add contact
@@ -225,7 +227,7 @@ const App = () => {
           newNumber={newNumber}
           handleNumberChange={handleNumberChange}
         />
-        <Notification message={notifMessage} type={notifType} />
+        {openModal && <Notification message={notifMessage} type={notifType} />}
       </Modal>
     </div>
   );
