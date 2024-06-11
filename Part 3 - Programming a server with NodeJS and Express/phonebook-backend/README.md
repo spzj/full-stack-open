@@ -1,6 +1,6 @@
 # Phonebook
 
-A basic react web phonebook application to add, filter, update, delete persons from a MongoDB server, built with Express.js and Node.js. The app is deployed on Render, and can be tested [here](https://phonebook-backend-1rqy.onrender.com/).
+A basic react web phonebook application to Create, Read, Update and Delete (CRUD) persons from a MongoDB server, built with Express.js and Node.js for the backend and tailwindcss for the frontend styling. Note that duplicate phone numbers are allowed to be added to the phonebook. The app is deployed on Render, and can be tested [here](https://phonebook-backend-1rqy.onrender.com/). As the application is hosted on a free service that spins down after 15 minutes of inactivity, it might take a few minutes for the service to spin back up.
 
 <img src="dist/app.jpg" alt="Phonebook Web Application" width="1200px" height="auto" />
 
