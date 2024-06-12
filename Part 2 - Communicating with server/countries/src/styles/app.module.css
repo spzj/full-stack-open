@@ -1,0 +1,77 @@
+@import './colors.css';
+
+@value xxs from './breakpoints.css';
+@value xs from './breakpoints.css';
+@value sm from './breakpoints.css';
+@value md from './breakpoints.css';
+@value lg from './breakpoints.css';
+
+body {
+  font-family: "Open Sans";
+  font-size: 16px;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo {
+  font-size: 35px;
+  font-weight: 600;
+  margin-top: 10%;
+}
+
+.letterBlue {
+  composes: logo;
+  color: var(--color-blue);
+}
+
+.letterGreen {
+  composes: logo;
+  color: var(--color-green);
+}
+
+.letterRed {
+  composes: logo;
+  color: var(--color-red);
+}
+
+.letterYellow {
+  composes: logo;
+  color: var(--color-yellow);
+}
+
+@media (xxs) {
+  .logo {
+    font-size: 45px;
+  }
+}
+
+@media (xs) {
+  .logo {
+    margin-top: 5%;
+  }
+}
+
+@media (sm) {
+  .logo {
+    font-size: 65px;
+    margin-top: 10%;
+  }
+}
+
+@media (md) {
+  .logo {
+    font-size: 80px;
+  }
+}
+
+@media (lg) {
+  .logo {
+    font-size: 90px;
+    margin-top: 5%;
+  }
+}

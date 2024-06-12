@@ -1,0 +1,7 @@
+@value xxs: min-width: 320px;
+@value xs: min-width: 425px;
+@value sm: min-width: 576px;
+@value md: min-width: 768px;
+@value lg: min-width: 1024px;
+@value xl: min-width: 1280px;
+@value xxl: min-width: 1536px;

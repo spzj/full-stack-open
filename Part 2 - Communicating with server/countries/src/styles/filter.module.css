@@ -1,0 +1,60 @@
+@import './colors.css';
+
+.searchBar {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  max-width: 600px;
+  position: relative;
+  width: 80%;
+}
+
+.icon {
+  fill: var(--color-gray);
+  height: 20px;
+  left: 15px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+}
+
+.input {
+  --input-padding: 10px;
+  --input-padding-left: 50px;
+
+  border-color: var(--color-gray);
+  border-style: solid;
+  border-width: 1px;
+  background-color: var(--color-white);
+  font-family: inherit;
+  font-size: inherit;
+  padding: var(--input-padding);
+  padding-left: var(--input-padding-left);
+  width: calc(100% - var(--input-padding) - var(--input-padding-left));
+}
+
+.inputBeforeSearch {
+  composes: input;
+  border-radius: 20px;
+}
+
+.inputBeforeSearch:focus {
+  border-color: var(--color-white);
+  box-shadow: 0 1px 3px 2px var(--color-light-gray-2);
+  outline: none;
+}
+
+.inputBeforeSearch:hover {
+  border-color: var(--color-white);
+  box-shadow: 0 1px 3px 2px var(--color-light-gray-2);
+}
+
+.inputAfterSearch {
+  composes: input;
+  border: none;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -1px 3px 2px var(--color-light-gray-2);
+  outline: none;
+}

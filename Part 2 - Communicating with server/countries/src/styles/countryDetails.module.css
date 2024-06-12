@@ -1,0 +1,190 @@
+@import './colors.css';
+
+@value xs from './breakpoints.css';
+@value sm from './breakpoints.css';
+@value md from './breakpoints.css';
+
+.bold {
+  font-weight: 500;
+}
+
+.header {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.countryHeader {
+  margin: 20px 5vw;
+}
+
+.countryName {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.countryBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.aboutBox {
+  border-bottom-color: var(--color-light-gray-2);
+  border-bottom-style: solid;
+  padding-bottom: 20px;
+}
+
+.aboutHeader {
+  composes: header;
+  margin: 5px 5vw 20px 5vw;
+}
+
+.aboutItem {
+  font-size: 15px;
+  margin: 5px 5vw;
+}
+
+.visuals {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.visualContainer {
+  background-color: var(--color-light-blue);
+  border-radius: 20px;
+  display: block;
+  height: 146px;
+  margin-top: 20px;
+  width: 260px;
+}
+
+.flagHeader {
+  composes: header;
+  margin: 15px 0 0 15px;
+}
+
+.flag {
+  height: 73px;
+  margin: 10px 0 0 15px;
+  max-width: 110px;
+}
+
+.weatherHeader {
+  composes: header;
+  margin: 12px 0 0 15px;
+}
+
+.weatherForecasts {
+  display: flex;
+  margin: 20px 0 0 0;
+}
+
+.dayOfWeekText {
+  font-size: 12px;
+  margin: 0 0 0 15px;
+}
+
+.weatherIconTempBox {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.weatherIcon {
+  height: 45px;
+  width: 45px;
+}
+
+.weatherTempText {
+  font-size: 15px;
+}
+
+.weatherSourceText {
+  font-size: 12px;
+  margin: 0 0 10px 15px;
+  text-decoration: none;
+}
+
+@media (xs) {
+  .aboutBox {
+    width: 80vw;
+  }
+
+  .visualContainer {
+    margin: 20px 0;
+    transform: scale(1.15);
+  }
+}
+
+@media (sm) {
+  .countryHeader {
+    margin: 20px 10px;
+  }
+
+  .countryName {
+    font-size: 24px;
+  }
+
+  .countryBody {
+    align-items: normal;
+  }
+
+  .aboutBox {
+    margin: 0 10px;
+    width: auto;
+  }
+
+  .aboutHeader {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .aboutItem {
+    margin: 5px 0;
+  }
+
+  .visuals {
+    flex-direction: row;
+  }
+
+  .visualContainer {
+    margin-left: 10px;
+    margin-right: 10px;
+    transform: scale(1);
+  }
+}
+
+@media (md) {
+  .countryHeader {
+    margin: 20px 0;
+    width: 600px;
+  }
+
+  .countryBody {
+    flex-direction: row;
+  }
+
+  .aboutBox {
+    border-bottom-color: transparent;
+    border-bottom-style: none;
+    border-right-color: var(--color-light-gray-2);
+    border-right-style: solid;
+    margin-left: 0;
+    margin-right: 40px;
+    width: 300px;
+  }
+
+  .visuals {
+    flex-direction: column;
+  }
+
+  .visualContainer {
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+}
