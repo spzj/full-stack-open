@@ -61,16 +61,13 @@ const App = () => {
   return (
     <div>
       {!user && (
-        <div>
-          <h2>Login</h2>
-          <LoginForm
-            handleLogin={handleLogin}
-            username={username}
-            handleUsernameChange={handleUsernameChange}
-            password={password}
-            handlePasswordChange={handlePasswordChange}
-          />
-        </div>
+        <LoginForm
+          handleLogin={handleLogin}
+          username={username}
+          handleUsernameChange={handleUsernameChange}
+          password={password}
+          handlePasswordChange={handlePasswordChange}
+        />
       )}
 
       {user && (
