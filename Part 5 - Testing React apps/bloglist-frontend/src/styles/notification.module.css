@@ -1,0 +1,25 @@
+@import "./colors.css";
+
+.container {
+  display: flex;
+  font-weight: 500;
+  margin: 1em;
+  width: min(80vw, 400px);
+  white-space: pre-wrap;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+@media (max-width: 320px) {
+  .container {
+    font-size: 5vw;
+  }
+}
+
+.error {
+  color: var(--color-red);
+}
+
+.success {
+  color: var(--color-blue);
+}

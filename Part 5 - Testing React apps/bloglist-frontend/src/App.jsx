@@ -3,15 +3,20 @@ import { useState, useEffect } from "react";
 import CreateBlogForm from "./components/CreateBlogForm";
 import Blog from "./components/Blog";
 import LoginForm from "./components/LoginForm";
+import Notification from "./components/Notification";
+import NotificationType from "./constants";
 
 import blogService from "./services/blogs";
 import loginService from "./services/login";
+import styles from "./styles/app.module.css";
 
 const storedUserKey = "bloglistUser";
 
 const App = () => {
   const [author, setAuthor] = useState("");
   const [blogs, setBlogs] = useState([]);
+  const [notifMessage, setNotifMessage] = useState(null);
+  const [notifType, setNotifType] = useState(null);
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
@@ -38,6 +43,14 @@ const App = () => {
     }
   }, []);
 
+  const showNotification = (type, message, duration = 1500) => {
+    setNotifType(type);
+    setNotifMessage(message);
+    setTimeout(() => {
+      setNotifMessage(null);
+    }, duration);
+  };
+
   const handleLogin = async (event) => {
     event.preventDefault();
 
@@ -53,14 +66,23 @@ const App = () => {
       setUser(user);
       setUsername("");
       setPassword("");
+
+      // Prevents notification messages from carrying over after login
+      setNotifMessage(null);
+      setNotifType(null);
     } catch (exception) {
       console.log(exception);
+      showNotification(NotificationType.ERROR, "Wrong username or password");
     }
   };
 
   const handleLogout = () => {
     window.localStorage.removeItem(storedUserKey);
     setUser(null);
+
+    // Prevents notification messages from carrying over after logout
+    setNotifMessage(null);
+    setNotifType(null);
   };
 
   const handleCreateBlog = async (event) => {
@@ -76,23 +98,28 @@ const App = () => {
       setTitle("");
       setAuthor("");
       setUrl("");
+      showNotification(NotificationType.SUCCESS, "Blog created");
     } catch (exception) {
       console.log(exception);
+      showNotification(NotificationType.ERROR, "Blog failed to be created");
     }
   };
 
   return (
     <div>
       {!user && (
-        <LoginForm
-          {...{
-            handleLogin,
-            username,
-            handleUsernameChange,
-            password,
-            handlePasswordChange,
-          }}
-        />
+        <div className={styles.loginContainer}>
+          <LoginForm
+            {...{
+              handleLogin,
+              username,
+              handleUsernameChange,
+              password,
+              handlePasswordChange,
+            }}
+          />
+          <Notification message={notifMessage} type={notifType} />
+        </div>
       )}
 
       {user && (
@@ -112,6 +139,7 @@ const App = () => {
               handleCreateBlog,
             }}
           />
+          <Notification type={notifType} message={notifMessage} />
           <div>
             {blogs.map((blog) => (
               <Blog key={blog.id} blog={blog} />
