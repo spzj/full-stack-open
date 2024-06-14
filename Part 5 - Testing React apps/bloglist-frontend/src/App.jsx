@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import CreateBlogForm from "./components/CreateBlogForm";
 import Blog from "./components/Blog";
 import LoginForm from "./components/LoginForm";
+import Modal from "./components/Modal";
 import Notification from "./components/Notification";
 import NotificationType from "./constants";
 
@@ -17,6 +18,7 @@ const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [notifMessage, setNotifMessage] = useState(null);
   const [notifType, setNotifType] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
@@ -29,6 +31,9 @@ const App = () => {
   const handleTitleChange = (event) => setTitle(event.target.value);
   const handleUrlChange = (event) => setUrl(event.target.value);
   const handleUsernameChange = (event) => setUsername(event.target.value);
+
+  const handleOpenModal = () => setOpenModal(true);
+  const closeModal = () => setOpenModal(false);
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -127,19 +132,22 @@ const App = () => {
           <h2>Blogs</h2>
           <div>{user.name} logged in</div>
           <button onClick={handleLogout}>logout</button>
-          <h2>Create</h2>
-          <CreateBlogForm
-            {...{
-              title,
-              author,
-              url,
-              handleTitleChange,
-              handleAuthorChange,
-              handleUrlChange,
-              handleCreateBlog,
-            }}
-          />
-          <Notification type={notifType} message={notifMessage} />
+          <button onClick={handleOpenModal}>Create</button>
+          <Modal openModal={openModal} closeModal={closeModal}>
+            <CreateBlogForm
+              {...{
+                title,
+                author,
+                url,
+                handleTitleChange,
+                handleAuthorChange,
+                handleUrlChange,
+                handleCreateBlog,
+              }}
+            />
+            <Notification type={notifType} message={notifMessage} />
+          </Modal>
+
           <div>
             {blogs.map((blog) => (
               <Blog key={blog.id} blog={blog} />
