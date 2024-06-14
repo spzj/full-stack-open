@@ -1,42 +1,60 @@
+import { useState } from "react";
 import formStyles from "../styles/form.module.css";
 
-const CreateBlogForm = ({
-  title,
-  author,
-  url,
-  handleTitleChange,
-  handleAuthorChange,
-  handleUrlChange,
-  handleCreateBlog
-}) => {
+const CreateBlogForm = ({ createBlog }) => {
+  const [author, setAuthor] = useState("");
+  const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
+
+  const handleAuthorChange = (event) => setAuthor(event.target.value);
+  const handleTitleChange = (event) => setTitle(event.target.value);
+  const handleUrlChange = (event) => setUrl(event.target.value);
+
+  const postBlog = (event) => {
+    event.preventDefault();
+    createBlog({ title, author, url });
+
+    setAuthor("");
+    setTitle("");
+    setUrl("");
+  };
   return (
-    <form className={formStyles.form} onSubmit={handleCreateBlog}>
+    <form id="create-blog-form" className={formStyles.form} onSubmit={postBlog}>
       <div>
         <input
+          name="title"
+          id="title"
           type="text"
+          autoComplete="off"
           value={title}
           onChange={handleTitleChange}
           required
         ></input>
-        <label>Title</label>
+        <label htmlFor="title">Title</label>
       </div>
       <div>
         <input
+          name="author"
+          id="author"
           type="text"
+          autoComplete="off"
           value={author}
           onChange={handleAuthorChange}
           required
         ></input>
-        <label>Author</label>
+        <label htmlFor="author">Author</label>
       </div>
       <div>
         <input
+          name="url"
+          id="url"
           type="url"
+          autoComplete="url"
           value={url}
           onChange={handleUrlChange}
           required
         ></input>
-        <label>Url</label>
+        <label htmlFor="url">Url</label>
       </div>
       <button type="submit">Create</button>
     </form>

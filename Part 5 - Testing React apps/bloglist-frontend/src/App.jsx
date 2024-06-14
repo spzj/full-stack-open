@@ -14,23 +14,11 @@ import styles from "./styles/app.module.css";
 const storedUserKey = "bloglistUser";
 
 const App = () => {
-  const [author, setAuthor] = useState("");
   const [blogs, setBlogs] = useState([]);
   const [notifMessage, setNotifMessage] = useState(null);
   const [notifType, setNotifType] = useState(null);
   const [openModal, setOpenModal] = useState(false);
-  const [password, setPassword] = useState("");
-  const [title, setTitle] = useState("");
-  const [url, setUrl] = useState("");
-  const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
-
-  // Input handlers
-  const handleAuthorChange = (event) => setAuthor(event.target.value);
-  const handlePasswordChange = (event) => setPassword(event.target.value);
-  const handleTitleChange = (event) => setTitle(event.target.value);
-  const handleUrlChange = (event) => setUrl(event.target.value);
-  const handleUsernameChange = (event) => setUsername(event.target.value);
 
   const handleOpenModal = () => setOpenModal(true);
   const closeModal = () => setOpenModal(false);
@@ -56,22 +44,14 @@ const App = () => {
     }, duration);
   };
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
-
+  const handleLogin = async (loginDetails) => {
     try {
-      const user = await loginService.login({
-        username,
-        password,
-      });
+      const user = await loginService.login(loginDetails);
 
       window.localStorage.setItem(storedUserKey, JSON.stringify(user));
       blogService.setToken(user.token);
 
       setUser(user);
-      setUsername("");
-      setPassword("");
-
       // Prevents notification messages from carrying over after login
       setNotifMessage(null);
       setNotifType(null);
@@ -90,19 +70,11 @@ const App = () => {
     setNotifType(null);
   };
 
-  const handleCreateBlog = async (event) => {
-    event.preventDefault();
+  const createBlog = async (blogDetails) => {
     try {
-      const newBlog = await blogService.create({
-        title,
-        author,
-        url,
-      });
+      const newBlog = await blogService.create(blogDetails);
 
       setBlogs((prevBlogs) => [...prevBlogs, newBlog]);
-      setTitle("");
-      setAuthor("");
-      setUrl("");
       showNotification(NotificationType.SUCCESS, "Blog created");
     } catch (exception) {
       console.log(exception);
@@ -114,15 +86,7 @@ const App = () => {
     <div>
       {!user && (
         <div className={styles.loginContainer}>
-          <LoginForm
-            {...{
-              handleLogin,
-              username,
-              handleUsernameChange,
-              password,
-              handlePasswordChange,
-            }}
-          />
+          <LoginForm handleLogin={handleLogin} />
           <Notification message={notifMessage} type={notifType} />
         </div>
       )}
@@ -134,17 +98,7 @@ const App = () => {
           <button onClick={handleLogout}>logout</button>
           <button onClick={handleOpenModal}>Create</button>
           <Modal openModal={openModal} closeModal={closeModal}>
-            <CreateBlogForm
-              {...{
-                title,
-                author,
-                url,
-                handleTitleChange,
-                handleAuthorChange,
-                handleUrlChange,
-                handleCreateBlog,
-              }}
-            />
+            <CreateBlogForm createBlog={createBlog} />
             <Notification type={notifType} message={notifMessage} />
           </Modal>
 
