@@ -2,6 +2,8 @@
 
 A basic react web phonebook application to search and view details of a country, which can be tested [here](https://countries-c2ak.onrender.com/). The app is styled with plain CSS, with CSS Modules to scope to each React component.
 
+<img src="public/countries_demo.gif" alt="Countries Demo" width="1200px" />
+
 ## APIs
 
 - The University of Helsinki's [RESTful API](https://studies.cs.helsinki.fi/restcountries/) provides a list of countries with information on their capital city, population, currency, etc. The images of the countries' flags are also obtained from the API.
@@ -16,7 +18,7 @@ A list of up to 10 countries will be displayed after the user keys in an input. 
 - Click on the country in the list
 - Use arrow keys to navigate through the list and press enter at the selected country
 
-<img src="public/country_list.jpg" alt="search for countries" width="1200px" height="auto" />
+<img src="public/country_list.jpg" alt="Search for countries" width="1200px" height="auto" />
 
 ## View a Country's Details and Weather Information
 
@@ -28,10 +30,7 @@ Basic information of the country, such as capital and currency, along with the w
 
 The app layout changes according to the screen sizes as seen below.
 
-<div style="display: flex;">
-<img src="public/mobile_600.jpg" alt="Mobile 600px" style="width: 50%; height: auto; margin-right: 10px;" />
-<img src="public/mobile_s.jpg" alt="Mobile 320px" style="width: 50%; height: auto;" />
-</div>
+<img src="public/mobile_responsiveness.gif" alt="Countries Mobile Responsiveness" width="1200px" />
 
 ## Running locally
 
