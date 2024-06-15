@@ -35,11 +35,26 @@ const Blog = ({ blog, user, updateLikes, deleteBlog }) => {
           )}
           <div className={styles.showButton} onClick={toggleDisplayPost}>
             <span>{displayPost ? 'Show less' : 'Show more'}</span>
-            <span className={styles.arrowIcon}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                <path d="M480-344 240-584l47.33-47.33L480-438.67l192.67-192.66L720-584 480-344Z" />
-              </svg>
-            </span>
+            {!displayPost && (
+              <span className={styles.arrowIcon}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                >
+                  <path d="M480-344 240-584l47.33-47.33L480-438.67l192.67-192.66L720-584 480-344Z" />
+                </svg>
+              </span>
+            )}
+            {displayPost && (
+              <span className={styles.arrowIcon}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                >
+                  <path d="M480-545.33 287.33-352.67 240-400l240-240 240 240-47.33 47.33L480-545.33Z" />
+                </svg>
+              </span>
+            )}
           </div>
           <div className={styles.engagement}>
             <div className={styles.likeContainer}>
