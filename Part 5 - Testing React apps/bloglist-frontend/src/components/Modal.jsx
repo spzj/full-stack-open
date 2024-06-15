@@ -1,15 +1,27 @@
 import { useEffect, useRef } from "react";
+import styles from "../styles/modal.module.css";
 
 const Modal = ({ openModal, closeModal, children }) => {
   const ref = useRef();
 
   useEffect(() => {
-    openModal ? ref.current?.showModal() : ref.current?.close();
+    if (openModal) {
+      ref.current?.showModal();
+      document.documentElement.style.overflow = "hidden";
+      document.body.scroll = "no";
+    } else {
+      ref.current?.close();
+      document.documentElement.style.overflow = "scroll";
+      document.body.scroll = "yes";
+    }
+    // openModal ? ref.current?.showModal() : ref.current?.close();
   }, [openModal]);
 
   return (
-    <dialog ref={ref} onCancel={closeModal}>
-      <button onClick={closeModal}>X</button>
+    <dialog className={styles.modal} ref={ref} onCancel={closeModal}>
+      <button className={styles.button} onClick={closeModal}>
+        X
+      </button>
       {children}
     </dialog>
   );

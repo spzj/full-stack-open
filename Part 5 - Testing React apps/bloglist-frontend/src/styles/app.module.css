@@ -1,6 +1,186 @@
+@import "./colors.css";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-family: "Arial";
+}
+
 .loginContainer {
   align-items: center;
   display: flex;
   flex-direction: column;
   font-family: "Arial";
+}
+
+.homeContainer {
+  --top-margin: 1.5em;
+  display: flex;
+  justify-content: center;
+}
+
+.sideBar {
+  --sidebar-width: 200px;
+  --icon-height: 40px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: sticky;
+  top: 0;
+  width: var(--sidebar-width);
+}
+
+.userContainer {
+  align-items: center;
+  display: flex;
+  margin: var(--top-margin) 0.5em 0.5em 0.5em;
+}
+
+.logo {
+  fill: var(--color-blue);
+  height: var(--icon-height);
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+  width: var(--icon-height);
+}
+
+.usernameText {
+  font-weight: bold;
+  margin-left: 0.5em;
+}
+
+.logoutContainer {
+  align-items: center;
+  display: flex;
+  margin: 0.5em;
+}
+
+.logoutContainer:hover {
+  background-color: var(--color-light-blue);
+}
+
+.logoutIcon {
+  fill: var(--color-blue);
+  height: var(--icon-height);
+  width: var(--icon-height);
+}
+
+.logoutContainer:hover .logoutIcon {
+  fill: var(--color-white);
+}
+
+.logoutText {
+  font-weight: bold;
+  margin-left: 0.5em;
+}
+
+.logoutContainer:hover .logoutText {
+  color: var(--color-white);
+}
+
+.feedContainer {
+  --feed-width: 600px;
+  border: 1px solid var(--color-light-gray-1);
+  border-top: none;
+  width: var(--feed-width);
+}
+
+.headerSticky {
+  position: sticky;
+  top: 0;
+}
+
+.headerContainer {
+  align-items: center;
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-light-gray-1);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerContainer h2 {
+  margin-left: 1rem;
+}
+
+.createButton {
+  background-color: var(--color-blue);
+  border: 0;
+  border-radius: 0.5em;
+  color: var(--color-white);
+  font-weight: 500;
+  margin: var(--top-margin) 1em;
+  padding: 0.6em 1em;
+}
+
+.createButton:hover {
+  background-color: var(--color-light-blue);
+}
+
+.blogs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.blogContainer {
+  border-bottom: 1px solid var(--color-light-gray-1);
+}
+
+/* To prevent overlapping of borders */
+.blogContainer:last-child {
+  border-bottom: none;
+}
+
+/* var(--sidebar-width) + var(--feed-width) */
+@media (max-width: 800px) {
+  .sideBar {
+    align-items: center;
+    width: auto;
+  }
+
+  .logo {
+    margin-left: auto;
+    margin-right: 0.5em;
+  }
+
+  .usernameText {
+    display: none;
+  }
+
+  .logoutIcon {
+    margin-left: auto;
+    margin-right: 0.5em;
+  }
+
+  .logoutText {
+    display: none;
+  }
+}
+
+@media (max-width: 670px) {
+  .homeContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+  }
+
+  .sideBar {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: auto;
+  }
+
+  .userContainer {
+    margin: 0.5em;
+  }
+
+  .feedContainer {
+    border: none;
+    width: auto;
+  }
 }
