@@ -240,7 +240,7 @@ describe('blog api tests', () => {
       assert.strictEqual(blogsAtEnd.length, blogsAtStart.length)
     })
 
-    test('fails with statuscode 401 if token is valid', async () => {
+    test('fails with statuscode 401 if token is invalid', async () => {
       const blogsAtStart = await helper.blogsInDb()
       const blogToUpdate = blogsAtStart[0]
 

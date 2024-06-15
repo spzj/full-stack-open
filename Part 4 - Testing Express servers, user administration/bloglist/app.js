@@ -8,16 +8,19 @@ const blogsRouter = require('./controllers/blogs')
 const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
+const setup = require('./utils/setup')
 const mongoose = require('mongoose')
 
 mongoose.set('strictQuery', false)
 
-logger.info('connecting to', config.MONGODB_URI)
+logger.info('connecting to MongoDB')
 
 mongoose
   .connect(config.MONGODB_URI)
-  .then(() => {
+  .then(async () => {
     logger.info('connected to MongoDB')
+    await setup.initializeDatabase()
+    logger.info('initialized database with data')
   })
   .catch((error) => {
     logger.info('error connecting to MongoDB:', error.message)
