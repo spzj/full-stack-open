@@ -52,18 +52,26 @@ blogsRouter.put('/:id', userExtractor, async (request, response) => {
   const blogToUpdate = await Blog.findById(request.params.id)
 
   if (!blogToUpdate) {
-    response.status(404).end()
-  } else if (blogToUpdate.user.toString() === user.id.toString()) {
-    blogToUpdate.set({ title, author, url, likes: likes ? likes : 0  })
+    return response.status(404).end()
+  }
 
-    try {
-      await blogToUpdate.validate()
-    } catch (error) {
-      return response.status(400).json({ error: error.message })
-    }
+  if (blogToUpdate.user.toString() === user.id.toString()) {
+    blogToUpdate.set({ title, author, url, likes: likes ? likes : 0 })
+  } else if (
+    blogToUpdate.title === title &&
+    blogToUpdate.author === author &&
+    blogToUpdate.url === url &&
+    blogToUpdate.likes === likes - 1
+  ) {
+    blogToUpdate.set({ likes: likes })
+  }
 
+  try {
+    await blogToUpdate.validate()
     await blogToUpdate.save()
-    response.status(200).json(blogToUpdate)
+    return response.status(200).json(blogToUpdate)
+  } catch (error) {
+    return response.status(400).json({ error: error.message })
   }
 })
 
