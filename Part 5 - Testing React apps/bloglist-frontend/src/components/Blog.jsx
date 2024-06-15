@@ -1,12 +1,13 @@
-import { useState } from "react";
-import styles from "../styles/blog.module.css";
+import PropTypes from 'prop-types'
+import { useState } from 'react'
+import styles from '../styles/blog.module.css'
 
 const Blog = ({ blog, user, updateLikes, deleteBlog }) => {
-  const [displayPost, setDisplayPost] = useState(false);
+  const [displayPost, setDisplayPost] = useState(false)
 
-  const toggleDisplayPost = () => setDisplayPost(!displayPost);
-  const handleLikeClick = () => updateLikes(blog);
-  const handleDeleteClick = () => deleteBlog(blog);
+  const toggleDisplayPost = () => setDisplayPost(!displayPost)
+  const handleLikeClick = () => updateLikes(blog)
+  const handleDeleteClick = () => deleteBlog(blog)
 
   return (
     <article className={styles.blog}>
@@ -33,7 +34,7 @@ const Blog = ({ blog, user, updateLikes, deleteBlog }) => {
             </div>
           )}
           <div className={styles.showButton} onClick={toggleDisplayPost}>
-            <span>{displayPost ? "Show less" : "Show more"}</span>
+            <span>{displayPost ? 'Show less' : 'Show more'}</span>
             <span className={styles.arrowIcon}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                 <path d="M480-344 240-584l47.33-47.33L480-438.67l192.67-192.66L720-584 480-344Z" />
@@ -52,7 +53,7 @@ const Blog = ({ blog, user, updateLikes, deleteBlog }) => {
               </span>
               <span className={styles.likeCountText}>{blog.likes}</span>
             </div>
-            {user.username == blog.user.username && (
+            {user.username === blog.user.username && (
               <span className={styles.deleteButton} onClick={handleDeleteClick}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +67,14 @@ const Blog = ({ blog, user, updateLikes, deleteBlog }) => {
         </div>
       </div>
     </article>
-  );
-};
+  )
+}
 
-export default Blog;
+Blog.propTypes = {
+  blog: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  updateLikes: PropTypes.func.isRequired,
+  deleteBlog: PropTypes.func.isRequired,
+}
+
+export default Blog

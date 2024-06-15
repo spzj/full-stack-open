@@ -1,10 +1,10 @@
-@import "./colors.css";
+@import './colors.css';
 
 .container {
   align-items: center;
   display: flex;
   flex-direction: column;
-  font-family: "Arial";
+  font-family: 'Arial';
   justify-content: center;
   margin-top: 10vh;
 }

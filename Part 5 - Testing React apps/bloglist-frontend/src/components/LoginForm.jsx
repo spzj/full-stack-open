@@ -1,20 +1,21 @@
-import { useState } from "react";
-import formStyles from "../styles/form.module.css";
-import styles from "../styles/login.module.css";
+import PropTypes from 'prop-types'
+import { useState } from 'react'
+import formStyles from '../styles/form.module.css'
+import styles from '../styles/login.module.css'
 
 const LoginForm = ({ handleLogin }) => {
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
 
-  const handlePasswordChange = (event) => setPassword(event.target.value);
-  const handleUsernameChange = (event) => setUsername(event.target.value);
+  const handlePasswordChange = (event) => setPassword(event.target.value)
+  const handleUsernameChange = (event) => setUsername(event.target.value)
 
   const attemptLogin = (event) => {
-    event.preventDefault();
-    handleLogin({ username, password });
-    setUsername("");
-    setPassword("");
-  };
+    event.preventDefault()
+    handleLogin({ username, password })
+    setUsername('')
+    setPassword('')
+  }
   return (
     <div className={styles.container}>
       <svg
@@ -53,7 +54,11 @@ const LoginForm = ({ handleLogin }) => {
         <button type="submit">Log in</button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default LoginForm;
+LoginForm.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+}
+
+export default LoginForm

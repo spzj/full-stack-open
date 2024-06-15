@@ -1,8 +1,9 @@
-import NotificationType from "../constants";
-import styles from "../styles/notification.module.css";
+import PropTypes from 'prop-types'
+import NotificationType from '../constants'
+import styles from '../styles/notification.module.css'
 
 const Notification = ({ type, message }) => {
-  if (!message) return null;
+  if (!message) return null
   return (
     <div className={styles.container}>
       <span
@@ -11,7 +12,12 @@ const Notification = ({ type, message }) => {
         {message}
       </span>
     </div>
-  );
-};
+  )
+}
 
-export default Notification;
+Notification.propTypes = {
+  type: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+}
+
+export default Notification

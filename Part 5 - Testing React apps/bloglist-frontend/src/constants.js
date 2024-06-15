@@ -1,6 +1,6 @@
 const NotificationType = {
-  ERROR: "error",
-  SUCCESS: "success",
-};
+  ERROR: 'error',
+  SUCCESS: 'success',
+}
 
-export default NotificationType;
+export default NotificationType

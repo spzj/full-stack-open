@@ -1,5 +1,5 @@
-@import "./colors.css";
-@import "./app.module.css";
+@import './colors.css';
+@import './app.module.css';
 
 .blog {
   --profileIconWidth: 50px;

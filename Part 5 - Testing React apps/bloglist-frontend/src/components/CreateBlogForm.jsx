@@ -1,23 +1,24 @@
-import { useState } from "react";
-import formStyles from "../styles/form.module.css";
+import PropTypes from 'prop-types'
+import { useState } from 'react'
+import formStyles from '../styles/form.module.css'
 
 const CreateBlogForm = ({ createBlog }) => {
-  const [author, setAuthor] = useState("");
-  const [title, setTitle] = useState("");
-  const [url, setUrl] = useState("");
+  const [author, setAuthor] = useState('')
+  const [title, setTitle] = useState('')
+  const [url, setUrl] = useState('')
 
-  const handleAuthorChange = (event) => setAuthor(event.target.value);
-  const handleTitleChange = (event) => setTitle(event.target.value);
-  const handleUrlChange = (event) => setUrl(event.target.value);
+  const handleAuthorChange = (event) => setAuthor(event.target.value)
+  const handleTitleChange = (event) => setTitle(event.target.value)
+  const handleUrlChange = (event) => setUrl(event.target.value)
 
   const postBlog = (event) => {
-    event.preventDefault();
-    createBlog({ title, author, url });
+    event.preventDefault()
+    createBlog({ title, author, url })
 
-    setAuthor("");
-    setTitle("");
-    setUrl("");
-  };
+    setAuthor('')
+    setTitle('')
+    setUrl('')
+  }
   return (
     <form id="create-blog-form" className={formStyles.form} onSubmit={postBlog}>
       <div>
@@ -58,7 +59,11 @@ const CreateBlogForm = ({ createBlog }) => {
       </div>
       <button type="submit">Create</button>
     </form>
-  );
-};
+  )
+}
 
-export default CreateBlogForm;
+CreateBlogForm.propTypes = {
+  createBlog: PropTypes.func.isRequired,
+}
+
+export default CreateBlogForm

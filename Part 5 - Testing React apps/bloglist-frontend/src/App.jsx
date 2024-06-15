@@ -1,113 +1,113 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 
-import CreateBlogForm from "./components/CreateBlogForm";
-import Blog from "./components/Blog";
-import LoginForm from "./components/LoginForm";
-import Modal from "./components/Modal";
-import Notification from "./components/Notification";
-import NotificationType from "./constants";
+import CreateBlogForm from './components/CreateBlogForm'
+import Blog from './components/Blog'
+import LoginForm from './components/LoginForm'
+import Modal from './components/Modal'
+import Notification from './components/Notification'
+import NotificationType from './constants'
 
-import blogService from "./services/blogs";
-import loginService from "./services/login";
-import styles from "./styles/app.module.css";
+import blogService from './services/blogs'
+import loginService from './services/login'
+import styles from './styles/app.module.css'
 
-const storedUserKey = "bloglistUser";
+const storedUserKey = 'bloglistUser'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [notifMessage, setNotifMessage] = useState(null);
-  const [notifType, setNotifType] = useState(null);
-  const [openModal, setOpenModal] = useState(false);
-  const [user, setUser] = useState(null);
+  const [blogs, setBlogs] = useState([])
+  const [notifMessage, setNotifMessage] = useState('')
+  const [notifType, setNotifType] = useState('')
+  const [openModal, setOpenModal] = useState(false)
+  const [user, setUser] = useState(null)
 
-  const handleOpenModal = () => setOpenModal(true);
-  const closeModal = () => setOpenModal(false);
+  const handleOpenModal = () => setOpenModal(true)
+  const closeModal = () => setOpenModal(false)
 
   useEffect(() => {
     blogService
       .getAll()
-      .then((blogs) => setBlogs(blogs.sort((a, b) => b.likes - a.likes)));
-  }, []);
+      .then((blogs) => setBlogs(blogs.sort((a, b) => b.likes - a.likes)))
+  }, [])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem(storedUserKey);
+    const loggedUserJSON = window.localStorage.getItem(storedUserKey)
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
-      setUser(user);
-      blogService.setToken(user.token);
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      blogService.setToken(user.token)
     }
-  }, []);
+  }, [])
 
   const showNotification = (type, message, duration = 1500) => {
-    setNotifType(type);
-    setNotifMessage(message);
+    setNotifType(type)
+    setNotifMessage(message)
     setTimeout(() => {
-      setNotifMessage(null);
-    }, duration);
-  };
+      setNotifMessage(null)
+    }, duration)
+  }
 
   const handleLogin = async (loginDetails) => {
     try {
-      const user = await loginService.login(loginDetails);
+      const user = await loginService.login(loginDetails)
 
-      window.localStorage.setItem(storedUserKey, JSON.stringify(user));
-      blogService.setToken(user.token);
+      window.localStorage.setItem(storedUserKey, JSON.stringify(user))
+      blogService.setToken(user.token)
 
-      setUser(user);
+      setUser(user)
       // Prevents notification messages from carrying over after login
-      setNotifMessage(null);
-      setNotifType(null);
+      setNotifMessage('')
+      setNotifType('')
     } catch (exception) {
-      console.log(exception);
-      showNotification(NotificationType.ERROR, "Wrong username or password");
+      console.log(exception)
+      showNotification(NotificationType.ERROR, 'Wrong username or password')
     }
-  };
+  }
 
   const handleLogout = () => {
-    window.localStorage.removeItem(storedUserKey);
-    setUser(null);
+    window.localStorage.removeItem(storedUserKey)
+    setUser(null)
 
     // Prevents notification messages from carrying over after logout
-    setNotifMessage(null);
-    setNotifType(null);
-  };
+    setNotifMessage('')
+    setNotifType('')
+  }
 
   const createBlog = async (blogDetails) => {
     try {
-      const newBlog = await blogService.create(blogDetails);
-      newBlog.user = user;
-      setBlogs((prevBlogs) => [...prevBlogs, newBlog]);
-      showNotification(NotificationType.SUCCESS, "Blog created");
+      const newBlog = await blogService.create(blogDetails)
+      newBlog.user = user
+      setBlogs((prevBlogs) => [...prevBlogs, newBlog])
+      showNotification(NotificationType.SUCCESS, 'Blog created')
     } catch (exception) {
-      console.log(exception);
-      showNotification(NotificationType.ERROR, "Blog failed to be created");
+      console.log(exception)
+      showNotification(NotificationType.ERROR, 'Blog failed to be created')
     }
-  };
+  }
 
   const updateLikes = async (blogDetails) => {
     try {
-      blogDetails.likes++;
-      const newBlog = await blogService.update(blogDetails.id, blogDetails);
-      newBlog.user = blogDetails.user;
+      blogDetails.likes++
+      const newBlog = await blogService.update(blogDetails.id, blogDetails)
+      newBlog.user = blogDetails.user
       const updatedBlogs = blogs
         .map((blog) => (blog.id === blogDetails.id ? newBlog : blog))
-        .sort((a, b) => b.likes - a.likes);
-      setBlogs(updatedBlogs);
+        .sort((a, b) => b.likes - a.likes)
+      setBlogs(updatedBlogs)
     } catch (exception) {
-      console.log(exception);
+      console.log(exception)
     }
-  };
+  }
 
   const deleteBlog = async (blogDetails) => {
     try {
-      if (confirm("Delete blog post?")) {
-        await blogService.remove(blogDetails.id);
-        setBlogs(blogs.filter((blog) => blog.id !== blogDetails.id));
+      if (confirm('Delete blog post?')) {
+        await blogService.remove(blogDetails.id)
+        setBlogs(blogs.filter((blog) => blog.id !== blogDetails.id))
       }
     } catch (exception) {
-      console.log(exception);
+      console.log(exception)
     }
-  };
+  }
 
   return (
     <div>
@@ -177,7 +177,7 @@ const App = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

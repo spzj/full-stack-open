@@ -1,21 +1,21 @@
-import { useEffect, useRef } from "react";
-import styles from "../styles/modal.module.css";
+import PropTypes from 'prop-types'
+import { useEffect, useRef } from 'react'
+import styles from '../styles/modal.module.css'
 
 const Modal = ({ openModal, closeModal, children }) => {
-  const ref = useRef();
+  const ref = useRef()
 
   useEffect(() => {
     if (openModal) {
-      ref.current?.showModal();
-      document.documentElement.style.overflow = "hidden";
-      document.body.scroll = "no";
+      ref.current?.showModal()
+      document.documentElement.style.overflow = 'hidden'
+      document.body.scroll = 'no'
     } else {
-      ref.current?.close();
-      document.documentElement.style.overflow = "scroll";
-      document.body.scroll = "yes";
+      ref.current?.close()
+      document.documentElement.style.overflow = 'scroll'
+      document.body.scroll = 'yes'
     }
-    // openModal ? ref.current?.showModal() : ref.current?.close();
-  }, [openModal]);
+  }, [openModal])
 
   return (
     <dialog className={styles.modal} ref={ref} onCancel={closeModal}>
@@ -24,7 +24,13 @@ const Modal = ({ openModal, closeModal, children }) => {
       </button>
       {children}
     </dialog>
-  );
-};
+  )
+}
 
-export default Modal;
+Modal.propTypes = {
+  openModal: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  children: PropTypes.array.isRequired,
+}
+
+export default Modal
