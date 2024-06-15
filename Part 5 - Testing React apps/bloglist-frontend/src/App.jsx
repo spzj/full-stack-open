@@ -24,7 +24,9 @@ const App = () => {
   const closeModal = () => setOpenModal(false);
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
+    blogService
+      .getAll()
+      .then((blogs) => setBlogs(blogs.sort((a, b) => b.likes - a.likes)));
   }, []);
 
   useEffect(() => {
@@ -73,6 +75,7 @@ const App = () => {
   const createBlog = async (blogDetails) => {
     try {
       const newBlog = await blogService.create(blogDetails);
+      newBlog.user = user;
       setBlogs((prevBlogs) => [...prevBlogs, newBlog]);
       showNotification(NotificationType.SUCCESS, "Blog created");
     } catch (exception) {
@@ -86,9 +89,9 @@ const App = () => {
       blogDetails.likes++;
       const newBlog = await blogService.update(blogDetails.id, blogDetails);
       newBlog.user = blogDetails.user;
-      const updatedBlogs = blogs.map((blog) =>
-        blog.id === blogDetails.id ? newBlog : blog
-      );
+      const updatedBlogs = blogs
+        .map((blog) => (blog.id === blogDetails.id ? newBlog : blog))
+        .sort((a, b) => b.likes - a.likes);
       setBlogs(updatedBlogs);
     } catch (exception) {
       console.log(exception);
