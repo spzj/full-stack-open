@@ -98,6 +98,17 @@ const App = () => {
     }
   };
 
+  const deleteBlog = async (blogDetails) => {
+    try {
+      if (confirm("Delete blog post?")) {
+        await blogService.remove(blogDetails.id);
+        setBlogs(blogs.filter((blog) => blog.id !== blogDetails.id));
+      }
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   return (
     <div>
       {!user && (
@@ -149,7 +160,12 @@ const App = () => {
             <div className={styles.blogs}>
               {blogs.map((blog) => (
                 <div className={styles.blogContainer} key={blog.id}>
-                  <Blog blog={blog} updateLikes={updateLikes} />
+                  <Blog
+                    blog={blog}
+                    user={user}
+                    updateLikes={updateLikes}
+                    deleteBlog={deleteBlog}
+                  />
                 </div>
               ))}
             </div>

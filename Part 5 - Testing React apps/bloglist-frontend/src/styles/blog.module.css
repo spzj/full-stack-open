@@ -74,7 +74,13 @@
 .engagement {
   align-items: center;
   display: flex;
+  justify-content: space-between;
   margin-top: var(--space);
+}
+
+.likeContainer {
+  align-items: center;
+  display: flex;
 }
 
 .likeCountText {
@@ -90,4 +96,15 @@
 
 .likeButton:hover {
   fill: var(--color-pink);
+}
+
+.deleteButton {
+  align-items: stretch;
+  fill: var(--color-gray);
+  height: 20px;
+  width: 20px;
+}
+
+.deleteButton:hover {
+  fill: var(--color-red);
 }
