@@ -1,12 +1,15 @@
 # full-stack-open
 
-A monorepository of react web applications developed during the University of Helsinki's online self-paced web development course, [Full Stack Open][FSO]. As the application is hosted on [Render]'s free instance that spins down after 15 minutes of inactivity, it might take a few minutes for the service to spin back up to view the demos. The screenshots of the applications can be found in the README linked in the repositories below.
+A monorepository of react web applications developed during the University of Helsinki's online self-paced web development course, [Full Stack Open][FSO]. 
+
+
+As the applications are hosted on [Render]'s free instance that spins down after 15 minutes of inactivity, it might take a few minutes for the service to spin back up to view the demos. The screenshots of the applications can be found in the README linked in the repositories below.
 
 | Project | Description | Repository | Demo |
 |:--------|:-------|:-----------|:-----|
-| Bloglist | Create, Read, Update and Delete blogs with token-based authorisation for users. | [Backend][B-B] | |
-| Phonebook | Search, Create, Read, Update and Delete contacts. Built with Node.js, Express, MongoDB. | [Frontend][PB-FE], [Backend][PB-BE] | [Demo][PB-D] |
-| Countries | Search and view information of a country. Country and weather data fetched from REST APIs. | [Frontend][C-FE], [Backend][C-BE] | [Demo][C-D]|
+| Bloglist | Create, Read, Update and Delete blogs with token-based authorisation for users. MERN stack. | [Frontend][B-FE], [Backend][B-B] | [Demo][B-D] |
+| Phonebook | Search, Create, Read, Update and Delete contacts. MERN stack. | [Frontend][PB-FE], [Backend][PB-BE] | [Demo][PB-D] |
+| Countries | Search for a country's information and 3-day weather forecast, fetched from REST APIs. | [Frontend][C-FE], [Backend][C-BE] | [Demo][C-D]|
 | Anecdotes | View and vote for random software engineering anecdotes. | [Code][A-C] | |
 | Unicafe | View and give customer feedback for a cafe. | [Code][UC-C] | |
 | Courseinfo | View course statistics (non-interactive). | [Code][CI-C] | |
@@ -26,8 +29,28 @@ A monorepository of react web applications developed during the University of He
 <a href="https://expressjs.com/" title="Express"><img src="public/Express.svg" height="36" width="auto" /></a>
 <a href="https://mongoosejs.com/" title="Mongoose.js"><img src="public/Mongoose.js.svg" height="36" width="auto" /></a>
 
+## [Bloglist][B-FE]
+
+A MERN stack application to share blogs as a user, styled with plain css.
+
+<img src="./public/bloglist_demo.gif" alt="Bloglist Demo">
+
+## [Countries][C-FE]
+
+Search for a country's information and weather forecast for the next 3 days, styled with plain css.
+
+<img src="./public/countries_demo.gif" alt="Countries Demo">
+
+## [Phonebook][PB-FE]
+
+A MERN stack application to manage your contacts, styled with Tailwind CSS.
+
+<img src="./public/phonebook_demo.gif" alt="Phonebook Demo">
+
 [A-C]: https://github.com/spzj/full-stack-open/tree/main/Part%201%20-%20Introduction%20to%20React/anecdotes
 [B-B]: https://github.com/spzj/full-stack-open/tree/main/Part%204%20-%20Testing%20Express%20servers%2C%20user%20administration/bloglist
+[B-D]: https://bloglist-7jd4.onrender.com/
+[B-FE]: https://github.com/spzj/full-stack-open/tree/main/Part%205%20-%20Testing%20React%20apps/bloglist-frontend
 [C-FE]: https://github.com/spzj/full-stack-open/tree/main/Part%202%20-%20Communicating%20with%20server/countries
 [C-BE]: https://github.com/spzj/full-stack-open/tree/main/Part%202%20-%20Communicating%20with%20server/countries-backend
 [C-D]: https://countries-c2ak.onrender.com/
