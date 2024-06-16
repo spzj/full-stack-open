@@ -18,7 +18,12 @@ const Modal = ({ openModal, closeModal, children }) => {
   }, [openModal])
 
   return (
-    <dialog className={styles.modal} ref={ref} onCancel={closeModal}>
+    <dialog
+      className={styles.modal}
+      role="dialog"
+      ref={ref}
+      onCancel={closeModal}
+    >
       <button className={styles.button} onClick={closeModal}>
         X
       </button>
@@ -30,7 +35,7 @@ const Modal = ({ openModal, closeModal, children }) => {
 Modal.propTypes = {
   openModal: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
-  children: PropTypes.array.isRequired,
+  children: PropTypes.node.isRequired,
 }
 
 export default Modal
