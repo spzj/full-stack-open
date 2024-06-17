@@ -26,8 +26,11 @@ As the applications are hosted on [Render]'s free instance that spins down after
 
 <a href="https://vitejs.dev/" title="Vite.js"><img src="public/Vite.js.svg" height="36" width="auto" /></a>
 <a href="https://nodejs.org/" title="Node.js"><img src="public/Node.js.svg" height="36" width="auto" /></a>
+<a href="https://nodemon.io/" title="Nodemon"><img src="public/Nodemon.svg" height="36" width="auto" /></a>
 <a href="https://expressjs.com/" title="Express"><img src="public/Express.svg" height="36" width="auto" /></a>
 <a href="https://mongoosejs.com/" title="Mongoose.js"><img src="public/Mongoose.js.svg" height="36" width="auto" /></a>
+<a href="https://www.postman.com/" title="Postman"><img src="public/Postman.svg" height="36" width="auto" /></a>
+<a href="https://playwright.dev/" title="Playwright"><img src="public/Playwright.svg" height="36" width="auto" /></a>
 
 ## [Bloglist][B-FE]
 
@@ -48,7 +51,7 @@ A MERN stack application to manage your contacts, styled with Tailwind CSS.
 <img src="./public/phonebook_demo.gif" alt="Phonebook Demo">
 
 [A-C]: https://github.com/spzj/full-stack-open/tree/main/Part%201%20-%20Introduction%20to%20React/anecdotes
-[B-B]: https://github.com/spzj/full-stack-open/tree/main/Part%204%20-%20Testing%20Express%20servers%2C%20user%20administration/bloglist
+[B-B]: https://github.com/spzj/full-stack-open/tree/main/Part%204%20-%20Testing%20Express%20servers_user%20administration/bloglist
 [B-D]: https://bloglist-7jd4.onrender.com/
 [B-FE]: https://github.com/spzj/full-stack-open/tree/main/Part%205%20-%20Testing%20React%20apps/bloglist-frontend
 [C-FE]: https://github.com/spzj/full-stack-open/tree/main/Part%202%20-%20Communicating%20with%20server/countries
