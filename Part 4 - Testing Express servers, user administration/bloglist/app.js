@@ -6,6 +6,7 @@ const cors = require('cors')
 const usersRouter = require('./controllers/users')
 const blogsRouter = require('./controllers/blogs')
 const loginRouter = require('./controllers/login')
+const testingRouter = require('./controllers/testing')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const setup = require('./utils/setup')
@@ -19,8 +20,10 @@ mongoose
   .connect(config.MONGODB_URI)
   .then(async () => {
     logger.info('connected to MongoDB')
-    await setup.initializeDatabase()
-    logger.info('initialized database with data')
+    if (process.env.NODE_ENV !== 'test') {
+      await setup.initializeDatabase()
+      logger.info('initialized database with data')
+    }
   })
   .catch((error) => {
     logger.info('error connecting to MongoDB:', error.message)
@@ -28,12 +31,17 @@ mongoose
 
 app.use(cors())
 app.use(express.json())
-app.use(express.static("dist"))
+app.use(express.static('dist'))
 
 app.use(middleware.tokenExtractor)
 app.use('/api/users', usersRouter)
 app.use('/api/blogs', blogsRouter)
 app.use('/api/login', loginRouter)
+
+if (process.env.NODE_ENV === 'test') {
+  const testingRouter = require('./controllers/testing')
+  app.use('/api/testing', testingRouter)
+}
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
