@@ -3,7 +3,7 @@
 .form {
   --input-border-width: 2px;
   --padding: 10px;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 1em;
   position: relative;
   width: min(80vw, 400px);

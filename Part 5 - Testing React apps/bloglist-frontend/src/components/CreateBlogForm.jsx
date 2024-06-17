@@ -57,7 +57,9 @@ const CreateBlogForm = ({ createBlog }) => {
         ></input>
         <label htmlFor="url">Url</label>
       </div>
-      <button type="submit">Create</button>
+      <button aria-label="Post Blog" type="submit">
+        Post
+      </button>
     </form>
   )
 }

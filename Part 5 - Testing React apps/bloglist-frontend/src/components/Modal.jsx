@@ -24,7 +24,12 @@ const Modal = ({ openModal, closeModal, children }) => {
       ref={ref}
       onCancel={closeModal}
     >
-      <button className={styles.button} onClick={closeModal}>
+      <button
+        aria-label="Close Modal"
+        type="button"
+        className={styles.button}
+        onClick={closeModal}
+      >
         X
       </button>
       {children}

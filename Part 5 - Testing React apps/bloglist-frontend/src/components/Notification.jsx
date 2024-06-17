@@ -5,7 +5,7 @@ import styles from '../styles/notification.module.css'
 const Notification = ({ type, message }) => {
   if (!message) return null
   return (
-    <div className={styles.container}>
+    <div className={styles.container} role="alert">
       <span
         className={`${type === NotificationType.SUCCESS ? styles.success : styles.error}`}
       >
@@ -17,7 +17,7 @@ const Notification = ({ type, message }) => {
 
 Notification.propTypes = {
   type: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
 }
 
 export default Notification

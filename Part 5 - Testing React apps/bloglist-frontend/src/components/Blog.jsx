@@ -26,14 +26,20 @@ const Blog = ({ blog, user, updateLikes, deleteBlog }) => {
         <div className={styles.content}>
           <span>{blog.title}</span>
           {displayPost && (
-            <div>
+            <div aria-hidden={!displayPost}>
               <span>{blog.author}</span>
               <a className={styles.url} href={blog.url}>
                 <span>{blog.url}</span>
               </a>
             </div>
           )}
-          <div className={styles.showButton} onClick={toggleDisplayPost}>
+          <button
+            aria-label={displayPost ? 'Show More' : 'Show Less'}
+            aria-expanded={displayPost}
+            type="button"
+            className={styles.showButton}
+            onClick={toggleDisplayPost}
+          >
             <span>{displayPost ? 'Show less' : 'Show more'}</span>
             {!displayPost && (
               <span className={styles.arrowIcon}>
@@ -55,28 +61,40 @@ const Blog = ({ blog, user, updateLikes, deleteBlog }) => {
                 </svg>
               </span>
             )}
-          </div>
+          </button>
           <div className={styles.engagement}>
             <div className={styles.likeContainer}>
-              <span className={styles.likeButton} onClick={handleLikeClick}>
+              <button
+                aria-label="Like Blog"
+                type="button"
+                className={styles.likeButton}
+                onClick={handleLikeClick}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
                 >
                   <path d="m480-120.67-46.67-42q-104.18-95.08-172.25-164.04Q193-395.67 152.67-450.17q-40.34-54.5-56.5-99.16Q80-594 80-640q0-91.44 61.33-152.72 61.34-61.28 152-61.28 55.34 0 103.34 25.33 48 25.34 83.33 72.67 39.33-49.33 86.33-73.67 47-24.33 100.34-24.33 90.66 0 152 61.28Q880-731.44 880-640q0 46-16.17 90.67-16.16 44.66-56.5 99.16-40.33 54.5-108.41 123.46-68.07 68.96-172.25 164.04l-46.67 42Zm0-88.66q99.49-90.67 163.75-155.5Q708-429.67 745.67-478.17q37.66-48.5 52.66-86.42t15-75.31q0-64.1-41.33-105.77-41.33-41.66-105.18-41.66-50.02 0-92.59 29.83-42.56 29.83-65.56 81.5h-58q-22.34-51-64.9-81.17-42.57-30.16-92.59-30.16-63.85 0-105.18 41.66-41.33 41.67-41.33 105.88 0 37.46 15 75.62 15 38.17 52.66 87Q252-428.33 316.67-363.83q64.66 64.5 163.33 154.5Zm0-289Z" />
                 </svg>
+              </button>
+              <span data-testid="like-count" className={styles.likeCountText}>
+                {blog.likes}
               </span>
-              <span className={styles.likeCountText}>{blog.likes}</span>
             </div>
             {user.username === blog.user.username && (
-              <span className={styles.deleteButton} onClick={handleDeleteClick}>
+              <button
+                aria-label="Delete Blog"
+                type="button"
+                className={styles.deleteButton}
+                onClick={handleDeleteClick}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 -960 960 960"
                 >
                   <path d="M267.33-120q-27.5 0-47.08-19.58-19.58-19.59-19.58-47.09V-740H160v-66.67h192V-840h256v33.33h192V-740h-40.67v553.33q0 27-19.83 46.84Q719.67-120 692.67-120H267.33Zm425.34-620H267.33v553.33h425.34V-740Zm-328 469.33h66.66v-386h-66.66v386Zm164 0h66.66v-386h-66.66v386ZM267.33-740v553.33V-740Z" />
                 </svg>
-              </span>
+              </button>
             )}
           </div>
         </div>

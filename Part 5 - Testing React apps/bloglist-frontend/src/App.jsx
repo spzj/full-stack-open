@@ -122,7 +122,7 @@ const App = () => {
         <div className={styles.homeContainer}>
           <div className={styles.sideBar}>
             <div className={styles.userContainer}>
-              <span className={styles.logo}>
+              <span aria-label="Bloglist Logo" className={styles.logo}>
                 <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                   <path
                     fill="#1DA1F2"
@@ -132,7 +132,12 @@ const App = () => {
               </span>
               <span className={styles.usernameText}>{user.name}</span>
             </div>
-            <div className={styles.logoutContainer} onClick={handleLogout}>
+            <button
+              aria-label="Logout"
+              type="button"
+              className={styles.logoutButton}
+              onClick={handleLogout}
+            >
               <span className={styles.logoutIcon}>
                 <svg
                   viewBox="0 -960 960 960"
@@ -142,7 +147,7 @@ const App = () => {
                 </svg>
               </span>
               <span className={styles.logoutText}>Logout</span>
-            </div>
+            </button>
           </div>
 
           <div className={styles.feedContainer}>
@@ -150,6 +155,8 @@ const App = () => {
               <div className={styles.headerContainer}>
                 <h2>Blogs</h2>
                 <button
+                  aria-label="Create Blog"
+                  type="button"
                   className={styles.createButton}
                   onClick={handleOpenModal}
                 >

@@ -51,7 +51,9 @@ const LoginForm = ({ handleLogin }) => {
           />
           <label htmlFor="password">Password</label>
         </div>
-        <button type="submit">Log in</button>
+        <button aria-label="Log in" type="submit">
+          Log in
+        </button>
       </form>
     </div>
   )

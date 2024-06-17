@@ -51,9 +51,18 @@
 
 .showButton {
   align-items: center;
+  background-color: transparent;
+  border: none;
   color: var(--color-gray);
   display: flex;
+  font-size: 1rem;
   margin-top: 0.2em;
+}
+
+.showButton:focus {
+  color: var(--color-light-blue);
+  fill: var(--color-light-blue);
+  outline: none;
 }
 
 .showButton:hover {
@@ -89,9 +98,16 @@
 
 .likeButton {
   align-items: stretch;
+  background-color: transparent;
+  border: none;
   fill: var(--color-gray);
   height: 20px;
   width: 20px;
+}
+
+.likeButton:focus {
+  fill: var(--color-pink);
+  outline: none;
 }
 
 .likeButton:hover {
@@ -100,9 +116,16 @@
 
 .deleteButton {
   align-items: stretch;
+  background-color: transparent;
+  border: none;
   fill: var(--color-gray);
   height: 20px;
   width: 20px;
+}
+
+.deleteButton:focus {
+  fill: var(--color-red);
+  outline: none;
 }
 
 .deleteButton:hover {
