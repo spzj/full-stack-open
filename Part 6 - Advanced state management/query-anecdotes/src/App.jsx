@@ -3,6 +3,7 @@ import AnecdoteList from './components/AnecdoteList';
 import Notification from './components/Notification';
 import { useQuery } from '@tanstack/react-query';
 import { getAnecdotes } from './requests';
+import styles from './styles/app.module.css';
 
 const App = () => {
   const result = useQuery({
@@ -14,15 +15,17 @@ const App = () => {
   const anecdotes = result.data;
 
   if (result.isPending) {
-    return <div>anecdote service fetching data from server.</div>
+    return <div>anecdote service fetching data from server.</div>;
   }
 
   return (
-    <div>
-      <h3>Anecdote app</h3>
-      <Notification />
-      <AnecdoteForm />
-      <AnecdoteList anecdotes={anecdotes} />
+    <div className={styles.pageContainer}>
+      <div className={styles.appContainer}>
+        <h1>Anecdotes</h1>
+        <AnecdoteForm />
+        <Notification />
+        <AnecdoteList anecdotes={anecdotes} />
+      </div>
     </div>
   );
 };

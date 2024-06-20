@@ -8,10 +8,10 @@ const validator = (request, response, next) => {
   console.log();
 
   const { content } = request.body;
-
-  if (request.method === 'POST' && (!content || content.length < 5)) {
+  const minLength = 5;
+  if (request.method === 'POST' && (!content || content.length <  minLength)) {
     return response.status(400).json({
-      error: 'too short anecdote, must have length 5 or more',
+      error: `anecdotes must have at least ${ minLength} characters`,
     });
   } else {
     next();

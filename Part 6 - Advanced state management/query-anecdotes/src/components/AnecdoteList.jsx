@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import Anecdote from './Anecdote';
+import styles from '../styles/anecdoteList.module.css';
 
 const AnecdoteList = ({ anecdotes }) => {
   return (
-    <section id='anecdotes'>
+    <section className={styles.container} id='anecdotes'>
       {anecdotes.map((anecdote) => (
         <Anecdote key={anecdote.id} anecdote={anecdote} />
       ))}

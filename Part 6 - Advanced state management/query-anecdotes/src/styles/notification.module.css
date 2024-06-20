@@ -1,0 +1,9 @@
+@import './colors.css';
+
+.error {
+  color: var(--color-red);
+}
+
+.success {
+  color: var(--color-blue);
+}

@@ -8,11 +8,11 @@ const NotificationContextProvider = (props) => {
       case 'CLEAR':
         return '';
       case 'CREATE':
-        return `anecdote: '${action.payload}' created`;
+        return `created: '${action.payload}'`;
       case 'ERROR':
         return `error: ${action.payload}`;
       case 'VOTE':
-        return `anecdote: '${action.payload}' voted`;
+        return `voted: '${action.payload}'`;
       default:
         return state;
     }

@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createAnecdote } from '../requests';
 import { useNotificationDispatch } from '../NotificationContext';
+import styles from '../styles/anecdoteForm.module.css';
 
 const AnecdoteForm = () => {
   const queryClient = useQueryClient();
@@ -25,11 +26,11 @@ const AnecdoteForm = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h3>create new</h3>
-      <form onSubmit={onCreate}>
+      <form className={styles.form} onSubmit={onCreate}>
         <input name='anecdote' />
-        <button type='submit'>create</button>
+        <button className={styles.createButton} type='submit'>create</button>
       </form>
     </div>
   );

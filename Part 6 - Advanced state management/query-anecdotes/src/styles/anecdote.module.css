@@ -1,0 +1,39 @@
+@import './colors.css';
+
+.anecdote {
+  border: none;
+  border-radius: 0.5em;
+  background-color: var(--color-white);
+  margin: 0.5em 0;
+  padding: 1em;
+}
+
+.voteContainer {
+  --icon-size: 24px;
+  aligh-items: center;
+  display: flex;
+  line-height: var(--icon-size);
+  margin-top: 0.5em;
+}
+
+.voteCount {
+  width: 4ex;
+}
+
+.voteButton {
+  background-color: transparent;
+  border: none;
+  fill: var(--color-blue);
+  height: var(--icon-size);
+  margin-left: 0.5em;
+  width: var(--icon-size);
+}
+
+.voteButton:focus {
+  fill: var(--color-light-blue);
+  outline: none;
+}
+
+.voteButton:hover {
+  fill: var(--color-light-blue);
+}

@@ -1,0 +1,33 @@
+@import './colors.css';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.pageContainer {
+  background-color: var(--color-light-gray);
+  display: flex;
+  font-family: 'Open Sans';
+  justify-contents: center;
+  padding: 1rem;
+}
+
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: auto;
+  width: 70vw;
+}
+
+.appContainer h1 {
+  color: var(--color-blue);
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .appContainer {
+    width: 90vw;
+  }
+}
