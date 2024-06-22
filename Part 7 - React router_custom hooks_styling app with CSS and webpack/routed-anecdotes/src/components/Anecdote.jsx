@@ -11,7 +11,7 @@ const Anecdote = ({ anecdote }) => {
 };
 
 Anecdote.propTypes = {
-  anecdote: PropTypes.object.isRequired,
+  anecdote: PropTypes.object,
 };
 
 export default Anecdote;

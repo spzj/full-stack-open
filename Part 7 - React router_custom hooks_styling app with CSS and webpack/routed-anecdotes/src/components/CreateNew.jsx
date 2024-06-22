@@ -20,6 +20,12 @@ const CreateNew = ({ addNew, setNotification }) => {
     navigate('/');
   };
 
+  const handleReset = () => {
+    content.reset();
+    author.reset();
+    url.reset();
+  };
+
   return (
     <div>
       <h2>Create a new anecdote</h2>
@@ -29,8 +35,10 @@ const CreateNew = ({ addNew, setNotification }) => {
           <input
             id='create-content'
             name='content'
+            type={content.type}
+            value={content.value}
+            onChange={content.onChange}
             autoComplete='off'
-            {...content}
           />
         </div>
         <div>
@@ -38,15 +46,27 @@ const CreateNew = ({ addNew, setNotification }) => {
           <input
             id='create-author'
             name='author'
+            type={author.type}
+            value={author.value}
+            onChange={author.onChange}
             autoComplete='off'
-            {...author}
           />
         </div>
         <div>
           <label htmlFor='create-url'>Url</label>
-          <input id='create-url' name='url' autoComplete='url' {...url} />
+          <input
+            id='create-url'
+            name='url'
+            type={url.type}
+            value={url.value}
+            onChange={url.onChange}
+            autoComplete='url'
+          />
         </div>
-        <button>create</button>
+        <button type='submit'>create</button>
+        <button type='reset' onClick={handleReset}>
+          reset
+        </button>
       </form>
     </div>
   );
