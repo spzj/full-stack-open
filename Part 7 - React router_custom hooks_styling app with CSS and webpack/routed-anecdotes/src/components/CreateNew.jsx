@@ -1,25 +1,22 @@
-import { useState } from 'react';
+import { useField } from '../hooks';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const CreateNew = ({ addNew, setNotification }) => {
-  const [content, setContent] = useState('');
-  const [author, setAuthor] = useState('');
-  const [url, setUrl] = useState('');
+  const content = useField('text');
+  const author = useField('text');
+  const url = useField('url');
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     addNew({
-      content,
-      author,
-      url,
+      content: content.value,
+      author: author.value,
+      url: url.value,
       votes: 0,
     });
-    setNotification(`Created: ${content}`);
-    setContent('');
-    setAuthor('');
-    setUrl('');
+    setNotification(`Created: ${content.value}`);
     navigate('/');
   };
 
@@ -32,10 +29,8 @@ const CreateNew = ({ addNew, setNotification }) => {
           <input
             id='create-content'
             name='content'
-            type='text'
             autoComplete='off'
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            {...content}
           />
         </div>
         <div>
@@ -43,22 +38,13 @@ const CreateNew = ({ addNew, setNotification }) => {
           <input
             id='create-author'
             name='author'
-            type='text'
             autoComplete='off'
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            {...author}
           />
         </div>
         <div>
           <label htmlFor='create-url'>Url</label>
-          <input
-            id='create-url'
-            name='url'
-            type='url'
-            autoComplete='url'
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
+          <input id='create-url' name='url' autoComplete='url' {...url} />
         </div>
         <button>create</button>
       </form>
