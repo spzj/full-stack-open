@@ -1,0 +1,42 @@
+@import './colors.css';
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Arial';
+  justify-content: center;
+  margin-top: 10vh;
+}
+
+.icon {
+  fill: var(--color-blue);
+  width: 50px;
+  height: 50px;
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+}
+
+.icon:hover {
+  animation-name: spin;
+  animation-duration: 2000ms;
+}
+
+@keyframes spin {
+  from {
+    transform: matrix(-1, 0, 0, 1, 0, 0) rotate(0deg);
+  }
+  to {
+    transform: matrix(-1, 0, 0, 1, 0, 0) rotate(359deg);
+  }
+}
+
+.header {
+  font-size: 1.5em;
+  margin: 1em;
+}
+
+@media (max-width: 320px) {
+  .header {
+    font-size: max(1rem, 8vw);
+  }
+}

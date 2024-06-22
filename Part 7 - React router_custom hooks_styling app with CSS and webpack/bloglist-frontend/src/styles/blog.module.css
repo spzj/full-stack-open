@@ -1,0 +1,133 @@
+@import './colors.css';
+@import './app.module.css';
+
+.blog {
+  --profileIconWidth: 50px;
+  --space: 0.5em;
+  background-color: var(--color-white);
+  display: flex;
+  padding: calc(2 * var(--space));
+}
+
+.profileIcon {
+  fill: var(--color-blue);
+  height: auto;
+  margin-right: var(--space);
+  width: var(--profileIconWidth);
+}
+
+.profileDetails {
+  margin-bottom: var(--space);
+}
+
+.user {
+  font-weight: bold;
+}
+
+.username {
+  color: var(--color-gray);
+  margin-left: var(--space);
+}
+
+.body {
+  white-space: pre-wrap;
+  width: calc(var(--feed-width) - var(--profileIconWidth) - 2 * var(--space));
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.content span {
+  display: block;
+  margin-top: 0.2em;
+}
+
+.url {
+  color: var(--color-blue);
+}
+
+.url:hover {
+  color: var(--color-light-blue);
+}
+
+.showButton {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: var(--color-gray);
+  display: flex;
+  font-size: 1rem;
+  margin-top: 0.2em;
+}
+
+.showButton:focus {
+  color: var(--color-light-blue);
+  fill: var(--color-light-blue);
+  outline: none;
+}
+
+.showButton:hover {
+  color: var(--color-light-blue);
+  fill: var(--color-light-blue);
+}
+
+.arrowIcon {
+  align-items: stretch;
+  height: 20px;
+  width: 20px;
+}
+
+.showButton:not(:hover) + arrowIcon {
+  fill: var(--color-gray);
+}
+
+.engagement {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space);
+}
+
+.likeContainer {
+  align-items: center;
+  display: flex;
+}
+
+.likeCountText {
+  margin-left: calc(0.5 * var(--space));
+}
+
+.likeButton {
+  align-items: stretch;
+  background-color: transparent;
+  border: none;
+  fill: var(--color-gray);
+  height: 20px;
+  width: 20px;
+}
+
+.likeButton:focus {
+  fill: var(--color-pink);
+  outline: none;
+}
+
+.likeButton:hover {
+  fill: var(--color-pink);
+}
+
+.deleteButton {
+  align-items: stretch;
+  background-color: transparent;
+  border: none;
+  fill: var(--color-gray);
+  height: 20px;
+  width: 20px;
+}
+
+.deleteButton:focus {
+  fill: var(--color-red);
+  outline: none;
+}
+
+.deleteButton:hover {
+  fill: var(--color-red);
+}
