@@ -20,9 +20,6 @@ const App = () => {
   const [openModal, setOpenModal] = useState(false)
   const [user, setUser] = useState(null)
 
-  const handleOpenModal = () => setOpenModal(true)
-  const closeModal = () => setOpenModal(false)
-
   useEffect(() => {
     blogService
       .getAll()
@@ -37,6 +34,9 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
+
+  const handleOpenModal = () => setOpenModal(true)
+  const closeModal = () => setOpenModal(false)
 
   const showNotification = (type, message, duration = 1500) => {
     setNotifType(type)
