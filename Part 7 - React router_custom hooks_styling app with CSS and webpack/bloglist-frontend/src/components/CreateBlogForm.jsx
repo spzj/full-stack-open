@@ -1,23 +1,44 @@
-import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useField } from '../hooks'
+import { useNotificationDispatch } from '../providers/NotificationContext'
+import { useUserValue } from '../providers/UserContext'
+import blogService from '../services/blogs'
 import formStyles from '../styles/form.module.css'
 
-const CreateBlogForm = ({ createBlog }) => {
-  const [author, setAuthor] = useState('')
-  const [title, setTitle] = useState('')
-  const [url, setUrl] = useState('')
-
-  const handleAuthorChange = (event) => setAuthor(event.target.value)
-  const handleTitleChange = (event) => setTitle(event.target.value)
-  const handleUrlChange = (event) => setUrl(event.target.value)
+const CreateBlogForm = () => {
+  const author = useField('text')
+  const title = useField('text')
+  const url = useField('url')
+  const user = useUserValue()
+  const notifDispatch = useNotificationDispatch()
+  const queryClient = useQueryClient()
+  const newBlogMutation = useMutation({
+    mutationFn: blogService.create,
+    onSuccess: (newBlog) => {
+      const blogs = queryClient.getQueryData(['blogs'])
+      newBlog.user = user
+      queryClient.setQueryData(['blogs'], blogs.concat(newBlog))
+      notifDispatch({ type: 'CREATE', payload: `${newBlog.title}` })
+    },
+    onError: (error) => {
+      console.log(error)
+      notifDispatch({ type: 'ERROR', payload: 'Blog failed to be created' })
+    },
+  })
 
   const postBlog = (event) => {
     event.preventDefault()
-    createBlog({ title, author, url })
+    const blogDetails = {
+      title: title.value,
+      author: author.value,
+      url: url.value,
+      likes: 0,
+    }
 
-    setAuthor('')
-    setTitle('')
-    setUrl('')
+    newBlogMutation.mutate(blogDetails)
+    author.reset()
+    title.reset()
+    url.reset()
   }
   return (
     <form id="create-blog-form" className={formStyles.form} onSubmit={postBlog}>
@@ -25,10 +46,10 @@ const CreateBlogForm = ({ createBlog }) => {
         <input
           name="title"
           id="title"
-          type="text"
-          autoComplete="off"
-          value={title}
-          onChange={handleTitleChange}
+          type={title.type}
+          value={title.value}
+          onChange={title.onChange}
+          autoComplete="on"
           required
         ></input>
         <label htmlFor="title">Title</label>
@@ -37,10 +58,10 @@ const CreateBlogForm = ({ createBlog }) => {
         <input
           name="author"
           id="author"
-          type="text"
-          autoComplete="off"
-          value={author}
-          onChange={handleAuthorChange}
+          type={author.type}
+          value={author.value}
+          onChange={author.onChange}
+          autoComplete="on"
           required
         ></input>
         <label htmlFor="author">Author</label>
@@ -49,10 +70,10 @@ const CreateBlogForm = ({ createBlog }) => {
         <input
           name="url"
           id="url"
-          type="url"
+          type={url.type}
+          value={url.value}
+          onChange={url.onChange}
           autoComplete="url"
-          value={url}
-          onChange={handleUrlChange}
           required
         ></input>
         <label htmlFor="url">Url</label>
@@ -62,10 +83,6 @@ const CreateBlogForm = ({ createBlog }) => {
       </button>
     </form>
   )
-}
-
-CreateBlogForm.propTypes = {
-  createBlog: PropTypes.func.isRequired,
 }
 
 export default CreateBlogForm

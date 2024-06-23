@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 
 import CreateBlogForm from './components/CreateBlogForm'
 import Blog from './components/Blog'
@@ -7,6 +8,7 @@ import Modal from './components/Modal'
 import Notification from './components/Notification'
 
 import { useNotificationDispatch } from './providers/NotificationContext'
+import { useUserDispatch, useUserValue } from './providers/UserContext'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import styles from './styles/app.module.css'
@@ -14,38 +16,37 @@ import styles from './styles/app.module.css'
 const storedUserKey = 'bloglistUser'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
   const [openModal, setOpenModal] = useState(false)
-  const [user, setUser] = useState(null)
+  const user = useUserValue()
+  const userDispatch = useUserDispatch()
   const notifDispatch = useNotificationDispatch()
-
-  useEffect(() => {
-    blogService
-      .getAll()
-      .then((blogs) => setBlogs(blogs.sort((a, b) => b.likes - a.likes)))
-  }, [])
+  const blogsResult = useQuery({
+    queryKey: ['blogs'],
+    queryFn: () => blogService.getAll(),
+    refetchOnWindowFocus: false,
+  })
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem(storedUserKey)
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      setUser(user)
+      userDispatch({ type: 'LOGIN', payload: user })
       blogService.setToken(user.token)
     }
-  }, [])
+  }, [userDispatch])
 
-  const handleOpenModal = () => setOpenModal(true)
-  const closeModal = () => setOpenModal(false)
+  if (blogsResult.isLoading) {
+    return <div>Loading...</div>
+  }
+
+  const blogs = blogsResult.data
 
   const handleLogin = async (loginDetails) => {
     try {
       const user = await loginService.login(loginDetails)
-
       window.localStorage.setItem(storedUserKey, JSON.stringify(user))
       blogService.setToken(user.token)
-
-      setUser(user)
-      // Prevents notification messages from carrying over after login
+      userDispatch({ type: 'LOGIN', payload: user })
     } catch (exception) {
       console.log(exception)
       notifDispatch({ type: 'ERROR', payload: 'Wrong username or password' })
@@ -54,19 +55,7 @@ const App = () => {
 
   const handleLogout = () => {
     window.localStorage.removeItem(storedUserKey)
-    setUser(null)
-  }
-
-  const createBlog = async (blogDetails) => {
-    try {
-      const newBlog = await blogService.create(blogDetails)
-      newBlog.user = user
-      setBlogs((prevBlogs) => [...prevBlogs, newBlog])
-      notifDispatch({ type: 'CREATE', payload: `${newBlog.title}` })
-    } catch (exception) {
-      console.log(exception)
-      notifDispatch({ type: 'ERROR', payload: 'Blog failed to be created' })
-    }
+    userDispatch({ type: 'LOGOUT' })
   }
 
   const updateLikes = async (blogDetails) => {
@@ -77,7 +66,7 @@ const App = () => {
       const updatedBlogs = blogs
         .map((blog) => (blog.id === blogDetails.id ? newBlog : blog))
         .sort((a, b) => b.likes - a.likes)
-      setBlogs(updatedBlogs)
+      //   setBlogs(updatedBlogs)
     } catch (exception) {
       console.log(exception)
     }
@@ -87,7 +76,7 @@ const App = () => {
     try {
       if (confirm('Delete blog post?')) {
         await blogService.remove(blogDetails.id)
-        setBlogs(blogs.filter((blog) => blog.id !== blogDetails.id))
+        // setBlogs(blogs.filter((blog) => blog.id !== blogDetails.id))
       }
     } catch (exception) {
       console.log(exception)
@@ -143,7 +132,7 @@ const App = () => {
                   aria-label="Create Blog"
                   type="button"
                   className={styles.createButton}
-                  onClick={handleOpenModal}
+                  onClick={() => setOpenModal(true)}
                 >
                   Create
                 </button>
@@ -162,8 +151,8 @@ const App = () => {
               ))}
             </div>
           </div>
-          <Modal openModal={openModal} closeModal={closeModal}>
-            <CreateBlogForm createBlog={createBlog} />
+          <Modal openModal={openModal} closeModal={() => setOpenModal(false)}>
+            <CreateBlogForm />
             <Notification />
           </Modal>
         </div>

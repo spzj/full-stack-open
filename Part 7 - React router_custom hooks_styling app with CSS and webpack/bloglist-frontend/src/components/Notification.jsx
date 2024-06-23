@@ -21,7 +21,7 @@ const Notification = () => {
   return (
     <div className={styles.container} role="alert">
       <span
-        className={`${message.startsWith('error') ? styles.error : styles.success}`}
+        className={`${message.startsWith('Error:') ? styles.error : styles.success}`}
       >
         {message}
       </span>
