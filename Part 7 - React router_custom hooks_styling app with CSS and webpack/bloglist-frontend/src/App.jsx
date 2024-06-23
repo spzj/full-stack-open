@@ -39,7 +39,7 @@ const App = () => {
     return <div>Loading...</div>
   }
 
-  const blogs = blogsResult.data
+  const blogs = blogsResult.data.sort((a, b) => b.likes - a.likes)
 
   const handleLogin = async (loginDetails) => {
     try {
@@ -56,31 +56,6 @@ const App = () => {
   const handleLogout = () => {
     window.localStorage.removeItem(storedUserKey)
     userDispatch({ type: 'LOGOUT' })
-  }
-
-  const updateLikes = async (blogDetails) => {
-    try {
-      blogDetails.likes++
-      const newBlog = await blogService.update(blogDetails.id, blogDetails)
-      newBlog.user = blogDetails.user
-      const updatedBlogs = blogs
-        .map((blog) => (blog.id === blogDetails.id ? newBlog : blog))
-        .sort((a, b) => b.likes - a.likes)
-      //   setBlogs(updatedBlogs)
-    } catch (exception) {
-      console.log(exception)
-    }
-  }
-
-  const deleteBlog = async (blogDetails) => {
-    try {
-      if (confirm('Delete blog post?')) {
-        await blogService.remove(blogDetails.id)
-        // setBlogs(blogs.filter((blog) => blog.id !== blogDetails.id))
-      }
-    } catch (exception) {
-      console.log(exception)
-    }
   }
 
   return (
@@ -141,12 +116,7 @@ const App = () => {
             <div className={styles.blogs}>
               {blogs.map((blog) => (
                 <div className={styles.blogContainer} key={blog.id}>
-                  <Blog
-                    blog={blog}
-                    user={user}
-                    updateLikes={updateLikes}
-                    deleteBlog={deleteBlog}
-                  />
+                  <Blog blog={blog} />
                 </div>
               ))}
             </div>

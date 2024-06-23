@@ -15,9 +15,8 @@ const CreateBlogForm = () => {
   const newBlogMutation = useMutation({
     mutationFn: blogService.create,
     onSuccess: (newBlog) => {
-      const blogs = queryClient.getQueryData(['blogs'])
       newBlog.user = user
-      queryClient.setQueryData(['blogs'], blogs.concat(newBlog))
+      queryClient.setQueryData(['blogs'], (blogs) => [...blogs, newBlog])
       notifDispatch({ type: 'CREATE', payload: `${newBlog.title}` })
     },
     onError: (error) => {
