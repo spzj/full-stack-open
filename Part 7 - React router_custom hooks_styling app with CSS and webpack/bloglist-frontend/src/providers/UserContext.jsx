@@ -25,7 +25,7 @@ export const useUserDispatch = () => {
 }
 
 export const UserContextProvider = (props) => {
-  const [user, userDispatch] = useReducer(userReducer, '')
+  const [user, userDispatch] = useReducer(userReducer, null)
 
   return (
     <UserContext.Provider value={[user, userDispatch]}>

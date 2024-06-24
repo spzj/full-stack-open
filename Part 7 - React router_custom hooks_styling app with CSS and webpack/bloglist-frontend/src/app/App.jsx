@@ -1,68 +1,42 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
-import CreateBlogForm from './components/CreateBlogForm'
-import Blog from './components/Blog'
-import LoginForm from './components/LoginForm'
-import Modal from './components/Modal'
-import Notification from './components/Notification'
-
-import { useNotificationDispatch } from './providers/NotificationContext'
-import { useUserDispatch, useUserValue } from './providers/UserContext'
-import blogService from './services/blogs'
-import loginService from './services/login'
-import styles from './styles/app.module.css'
-
-const storedUserKey = 'bloglistUser'
+import CreateBlogForm from '../components/CreateBlogForm'
+import Blog from '../components/Blog'
+import LoginForm from '../components/LoginForm'
+import Modal from '../components/Modal'
+import Notification from '../components/Notification'
+import useAuth from '../hooks/useAuth'
+import { useUserValue } from '../providers/UserContext'
+import blogService from '../services/blogs'
+import styles from '../styles/app.module.css'
 
 const App = () => {
   const [openModal, setOpenModal] = useState(false)
+  const auth = useAuth()
+  useEffect(() => {
+    auth.getUserFromLocalStorage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const user = useUserValue()
-  const userDispatch = useUserDispatch()
-  const notifDispatch = useNotificationDispatch()
   const blogsResult = useQuery({
     queryKey: ['blogs'],
     queryFn: () => blogService.getAll(),
     refetchOnWindowFocus: false,
   })
 
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem(storedUserKey)
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      userDispatch({ type: 'LOGIN', payload: user })
-      blogService.setToken(user.token)
-    }
-  }, [userDispatch])
-
   if (blogsResult.isLoading) {
     return <div>Loading...</div>
   }
 
   const blogs = blogsResult.data.sort((a, b) => b.likes - a.likes)
-
-  const handleLogin = async (loginDetails) => {
-    try {
-      const user = await loginService.login(loginDetails)
-      window.localStorage.setItem(storedUserKey, JSON.stringify(user))
-      blogService.setToken(user.token)
-      userDispatch({ type: 'LOGIN', payload: user })
-    } catch (exception) {
-      console.log(exception)
-      notifDispatch({ type: 'ERROR', payload: 'Wrong username or password' })
-    }
-  }
-
-  const handleLogout = () => {
-    window.localStorage.removeItem(storedUserKey)
-    userDispatch({ type: 'LOGOUT' })
-  }
+  const handleLogout = () => auth.logout()
 
   return (
     <div>
       {!user && (
         <div className={styles.loginContainer}>
-          <LoginForm handleLogin={handleLogin} />
+          <LoginForm />
           <Notification />
         </div>
       )}

@@ -1,21 +1,21 @@
-import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { useField } from '../hooks/useField'
+
+import useAuth from '../hooks/useAuth'
 import formStyles from '../styles/form.module.css'
 import styles from '../styles/login.module.css'
 
-const LoginForm = ({ handleLogin }) => {
-  const [password, setPassword] = useState('')
-  const [username, setUsername] = useState('')
+const LoginForm = () => {
+  const password = useField('password')
+  const username = useField('text')
+  const auth = useAuth()
 
-  const handlePasswordChange = (event) => setPassword(event.target.value)
-  const handleUsernameChange = (event) => setUsername(event.target.value)
-
-  const attemptLogin = (event) => {
+  const attemptLogin = async (event) => {
     event.preventDefault()
-    handleLogin({ username, password })
-    setUsername('')
-    setPassword('')
+    await auth.login({ username: username.value, password: password.value })
+    username.reset()
+    password.reset()
   }
+
   return (
     <div className={styles.container}>
       <svg
@@ -31,10 +31,10 @@ const LoginForm = ({ handleLogin }) => {
           <input
             name="username"
             id="username"
-            type="text"
+            type={username.type}
+            value={username.value}
+            onChange={username.onChange}
             autoComplete="username"
-            value={username}
-            onChange={handleUsernameChange}
             required
           />
           <label htmlFor="username">Username</label>
@@ -43,10 +43,10 @@ const LoginForm = ({ handleLogin }) => {
           <input
             name="password"
             id="password"
-            type="password"
+            type={password.type}
+            value={password.value}
+            onChange={password.onChange}
             autoComplete="current-password"
-            value={password}
-            onChange={handlePasswordChange}
             required
           />
           <label htmlFor="password">Password</label>
@@ -57,10 +57,6 @@ const LoginForm = ({ handleLogin }) => {
       </form>
     </div>
   )
-}
-
-LoginForm.propTypes = {
-  handleLogin: PropTypes.func.isRequired,
 }
 
 export default LoginForm
