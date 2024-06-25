@@ -19,13 +19,25 @@ const initialUsers = [
 
 const initializeDatabase = async () => {
   await User.deleteMany({})
-  await User.insertMany(initialUsers)
-
-  const users = await User.find({})
-  const blogs = initialBlogs.map((b, index) => ({ ...b, user: users[index % initialUsers.length].id }))
-
   await Blog.deleteMany({})
+
+  await User.insertMany(initialUsers)
+  const users = await User.find({})
+
+  const blogs = initialBlogs.map((b, index) => ({
+    ...b,
+    user: users[index % initialUsers.length].id,
+  }))
   await Blog.insertMany(blogs)
+
+  const savedBlogs = await Blog.find({})
+  for (let i = 0; i < users.length; i++) {
+    const user = users[i]
+    user.blogs = savedBlogs
+      .filter((_, index) => index % users.length === i)
+      .map((b) => b.id)
+    await user.save()
+  }
 }
 
 module.exports = { initializeDatabase }
