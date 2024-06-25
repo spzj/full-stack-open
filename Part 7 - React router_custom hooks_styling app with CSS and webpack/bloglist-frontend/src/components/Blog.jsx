@@ -27,7 +27,7 @@ const Blog = ({ blog }) => {
 
   const deleteBlogMutation = useMutation({
     mutationFn: blogService.remove,
-    onSuccess: (deletedBlog) => queryClient.invalidateQueries(['blogs']),
+    onSuccess: () => queryClient.invalidateQueries(['blogs']),
     onError: (error) => {
       console.log(error)
     },

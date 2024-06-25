@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
+import blogService from '../services/blogs'
 
 const userReducer = (state, action) => {
   switch (action.type) {
@@ -24,8 +25,18 @@ export const useUserDispatch = () => {
   return userAndDispatch[1]
 }
 
+const getUser = () => {
+  const storedUser = window.localStorage.getItem('storedUser')
+  if (!storedUser) {
+    return null
+  }
+  const parsedUser = JSON.parse(storedUser)
+  blogService.setToken(parsedUser.token)
+  return parsedUser
+}
+
 export const UserContextProvider = (props) => {
-  const [user, userDispatch] = useReducer(userReducer, null)
+  const [user, userDispatch] = useReducer(userReducer, getUser())
 
   return (
     <UserContext.Provider value={[user, userDispatch]}>

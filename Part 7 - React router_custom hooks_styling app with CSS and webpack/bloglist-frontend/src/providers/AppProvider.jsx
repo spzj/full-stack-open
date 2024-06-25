@@ -1,21 +1,19 @@
+import { Outlet } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import PropTypes from 'prop-types'
 
 import { NotificationContextProvider } from './NotificationContext'
 import { UserContextProvider } from './UserContext'
 
 const queryClient = new QueryClient()
 
-export const AppProvider = ({ children }) => {
+export const AppProvider = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <UserContextProvider>
-        <NotificationContextProvider>{children}</NotificationContextProvider>
+        <NotificationContextProvider>
+          <Outlet />
+        </NotificationContextProvider>
       </UserContextProvider>
     </QueryClientProvider>
   )
-}
-
-AppProvider.propTypes = {
-  children: PropTypes.node.isRequired,
 }

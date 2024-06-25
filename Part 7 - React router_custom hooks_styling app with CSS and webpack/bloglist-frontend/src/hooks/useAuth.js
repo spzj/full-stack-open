@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { useNotificationDispatch } from '../providers/NotificationContext'
 import { useUserDispatch } from '../providers/UserContext'
 import blogService from '../services/blogs'
@@ -6,6 +7,7 @@ import loginService from '../services/login'
 const storedUserKey = 'storedUser'
 
 const useAuth = () => {
+  const navigate = useNavigate()
   const userDispatch = useUserDispatch()
   const notifDispatch = useNotificationDispatch()
 
@@ -15,6 +17,7 @@ const useAuth = () => {
       window.localStorage.setItem(storedUserKey, JSON.stringify(user))
       blogService.setToken(user.token)
       userDispatch({ type: 'LOGIN', payload: user })
+      navigate('/app')
     } catch (error) {
       notifDispatch({ type: 'ERROR', payload: 'Wrong username or password' })
     }
@@ -23,21 +26,12 @@ const useAuth = () => {
   const logout = () => {
     window.localStorage.removeItem(storedUserKey)
     userDispatch({ type: 'LOGOUT' })
-  }
-
-  const getUserFromLocalStorage = () => {
-    const storedUser = window.localStorage.getItem(storedUserKey)
-    if (storedUser) {
-      const user = JSON.parse(storedUser)
-      userDispatch({ type: 'LOGIN', payload: user })
-      blogService.setToken(user.token)
-    }
+    navigate('/')
   }
 
   return {
     login,
     logout,
-    getUserFromLocalStorage,
   }
 }
 
