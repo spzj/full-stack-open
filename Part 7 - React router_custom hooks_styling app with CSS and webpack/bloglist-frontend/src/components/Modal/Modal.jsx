@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useEffect, useRef } from 'react'
-import styles from '../styles/modal.module.css'
+import styles from './Modal.module.css'
 
 const Modal = ({ openModal, closeModal, children }) => {
   const ref = useRef()

@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useField } from '../hooks/useField'
-import { useNotificationDispatch } from '../providers/NotificationContext'
-import { useUserValue } from '../providers/UserContext'
-import blogService from '../services/blogs'
-import formStyles from '../styles/form.module.css'
+import { useField } from '@/hooks/useField'
+import { useNotificationDispatch } from '@/providers/NotificationContext'
+import { useUserValue } from '@/providers/UserContext'
+import blogService from '@/services/blogs'
+import formStyles from '@/styles/form.module.css'
 
 const CreateBlogForm = () => {
   const author = useField('text')

@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Blog from '../components/Blog'
-import styles from '../styles/blog.module.css'
+import Blog from './Blog'
+import styles from './blog.module.css'
 
 describe('Blog', () => {
   const user = {

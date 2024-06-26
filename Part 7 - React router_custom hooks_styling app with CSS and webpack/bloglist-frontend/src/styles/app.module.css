@@ -39,12 +39,12 @@
   margin: var(--top-margin) 0.5em 0.5em 0.5em;
 }
 
-.logo {
+/* .logo {
   fill: var(--color-blue);
   height: var(--icon-height);
   transform: matrix(-1, 0, 0, 1, 0, 0);
   width: var(--icon-height);
-}
+} */
 
 .usernameText {
   font-weight: bold;

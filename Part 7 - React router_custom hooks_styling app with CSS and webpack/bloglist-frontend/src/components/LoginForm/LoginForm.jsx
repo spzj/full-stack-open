@@ -1,8 +1,7 @@
-import { useField } from '../hooks/useField'
-
-import useAuth from '../hooks/useAuth'
-import formStyles from '../styles/form.module.css'
-import styles from '../styles/login.module.css'
+import { useField } from '@/hooks/useField'
+import useAuth from '@/hooks/useAuth'
+import formStyles from '@/styles/form.module.css'
+import styles from '@/styles/login.module.css'
 
 const LoginForm = () => {
   const password = useField('password')

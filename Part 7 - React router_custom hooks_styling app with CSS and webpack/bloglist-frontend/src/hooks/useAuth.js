@@ -26,7 +26,7 @@ const useAuth = () => {
   const logout = () => {
     window.localStorage.removeItem(storedUserKey)
     userDispatch({ type: 'LOGOUT' })
-    navigate('/')
+    navigate('/auth/login')
   }
 
   return {

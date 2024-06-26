@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import {
   useNotificationMessage,
   useNotificationDispatch,
-} from '../providers/NotificationContext'
-import styles from '../styles/notification.module.css'
+} from '@/providers/NotificationContext'
+import styles from './Notification.module.css'
 
 const Notification = () => {
   const message = useNotificationMessage()

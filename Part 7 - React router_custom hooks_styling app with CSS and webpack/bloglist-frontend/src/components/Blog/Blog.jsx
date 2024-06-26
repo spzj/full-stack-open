@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import PropTypes from 'prop-types'
-import { useUserValue } from '../providers/UserContext'
-import blogService from '../services/blogs'
-import styles from '../styles/blog.module.css'
+import { useUserValue } from '@/providers/UserContext'
+import blogService from '@/services/blogs'
+import styles from './Blog.module.css'
 
 const Blog = ({ blog }) => {
   const [displayPost, setDisplayPost] = useState(false)

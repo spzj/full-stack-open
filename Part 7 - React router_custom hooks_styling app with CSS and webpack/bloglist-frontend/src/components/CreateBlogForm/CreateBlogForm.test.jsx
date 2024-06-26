@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import CreateBlogForm from '../components/CreateBlogForm'
+import CreateBlogForm from '@/components/CreateBlogForm'
 
 describe('CreateBlogForm', () => {
   test('Updates Parent State and Calls onSubmit with Complete Details', async () => {
