@@ -1,8 +1,9 @@
 import { Navigate } from 'react-router-dom'
 import { useUserValue } from '@/providers/UserContext'
+import Logo from '@/assets/logo.svg?react'
 import LoginForm from '@/components/LoginForm'
 import Notification from '@/components/Notification'
-import styles from '@/styles/app.module.css'
+import styles from './LoginRoute.module.css'
 
 const LoginRoute = () => {
   const user = useUserValue()
@@ -12,9 +13,13 @@ const LoginRoute = () => {
   }
 
   return (
-    <div className={styles.loginContainer}>
-      <LoginForm />
-      <Notification />
+    <div className={styles.container}>
+      <div className={styles.innerContainer}>
+        <Logo className={styles.logo} />
+        <h2>Log in to Bloglist</h2>
+        <LoginForm />
+        <Notification />
+      </div>
     </div>
   )
 }

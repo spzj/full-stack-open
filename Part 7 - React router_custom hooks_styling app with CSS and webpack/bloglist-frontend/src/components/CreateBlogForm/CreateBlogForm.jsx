@@ -3,7 +3,9 @@ import { useField } from '@/hooks/useField'
 import { useNotificationDispatch } from '@/providers/NotificationContext'
 import { useUserValue } from '@/providers/UserContext'
 import blogService from '@/services/blogs'
-import formStyles from '@/styles/form.module.css'
+import Button from '@/components/ui/Button'
+import Input from '@/components/ui/Input'
+import styles from './CreateBlogForm.module.css'
 
 const CreateBlogForm = () => {
   const author = useField('text')
@@ -40,46 +42,32 @@ const CreateBlogForm = () => {
     url.reset()
   }
   return (
-    <form id="create-blog-form" className={formStyles.form} onSubmit={postBlog}>
-      <div>
-        <input
-          name="title"
-          id="title"
-          type={title.type}
-          value={title.value}
-          onChange={title.onChange}
-          autoComplete="on"
-          required
-        ></input>
-        <label htmlFor="title">Title</label>
-      </div>
-      <div>
-        <input
-          name="author"
-          id="author"
-          type={author.type}
-          value={author.value}
-          onChange={author.onChange}
-          autoComplete="on"
-          required
-        ></input>
-        <label htmlFor="author">Author</label>
-      </div>
-      <div>
-        <input
-          name="url"
-          id="url"
-          type={url.type}
-          value={url.value}
-          onChange={url.onChange}
-          autoComplete="url"
-          required
-        ></input>
-        <label htmlFor="url">Url</label>
-      </div>
-      <button aria-label="Post Blog" type="submit">
-        Post
-      </button>
+    <form className={styles.form} onSubmit={postBlog}>
+      <Input
+        label="Title"
+        type={title.type}
+        value={title.value}
+        onChange={title.onChange}
+        autoComplete="on"
+        required
+      />
+      <Input
+        label="Author"
+        type={author.type}
+        value={author.value}
+        onChange={author.onChange}
+        autoComplete="on"
+        required
+      />
+      <Input
+        label="Url"
+        type={url.type}
+        value={url.value}
+        onChange={url.onChange}
+        autoComplete="url"
+        required
+      />
+      <Button text="Post" type="submit" />
     </form>
   )
 }

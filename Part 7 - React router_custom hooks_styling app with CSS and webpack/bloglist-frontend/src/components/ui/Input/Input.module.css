@@ -1,0 +1,50 @@
+@import '@/styles/colors.css';
+
+.inputField {
+  --input-border-width: 2px;
+  --padding: 10px;
+  font-size: 1em;
+  margin: 0.5em 1em;
+  position: relative;
+}
+
+.inputField input {
+  background-color: var(--color-light-gray-1);
+  border: var(--input-border-width) solid var(--color-light-gray-1);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  font-size: 1em;
+  padding-inline: var(--padding);
+  padding-bottom: 0.5em;
+  padding-top: 1.2em;
+  width: 100%;
+}
+
+.inputField input:focus {
+  border-color: var(--color-blue);
+  outline: none;
+}
+
+.inputField label {
+  color: var(--color-gray);
+  left: 0;
+  margin-left: calc(var(--input-border-width) + var(--padding));
+  pointer-events: none; /* Allow click through label */
+  position: absolute;
+  transform: translateY(calc(1em - var(--input-border-width)));
+  transition: 0.2s ease all;
+}
+
+.inputField input:focus ~ label {
+  color: var(--color-blue);
+  font-size: 0.75em;
+  transform: translateY(0.5em);
+  transition: 0.2s ease all;
+}
+
+/* Minimised gray label when input contains value and not focused */
+.inputField input:valid:not(:focus) ~ label {
+  color: var(--color-gray);
+  font-size: 0.75em;
+  transform: translateY(0.5em);
+}

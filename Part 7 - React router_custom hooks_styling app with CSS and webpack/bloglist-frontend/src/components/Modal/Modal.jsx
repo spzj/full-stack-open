@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
 import { useEffect, useRef } from 'react'
+
+import XIcon from '@/assets/x.svg?react'
 import styles from './Modal.module.css'
 
 const Modal = ({ openModal, closeModal, children }) => {
@@ -30,7 +32,7 @@ const Modal = ({ openModal, closeModal, children }) => {
         className={styles.button}
         onClick={closeModal}
       >
-        X
+        <XIcon className={styles.icon} />
       </button>
       {children}
     </dialog>

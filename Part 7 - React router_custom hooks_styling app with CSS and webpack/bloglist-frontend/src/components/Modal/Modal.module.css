@@ -10,15 +10,23 @@
 }
 
 .button {
+  --width: 16px;
   background: none;
   border: none;
   color: var(--color-gray);
+  height: var(--width);
   margin: 1em;
   position: absolute;
   right: 0;
   top: 0;
+  width: var(--width);
 }
 
 .button:hover {
   color: var(--color-light-blue);
+}
+
+.icon {
+  height: var(--width);
+  width: var(--width);
 }
