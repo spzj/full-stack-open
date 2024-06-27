@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
-import Blog from '@/components/Blog'
-import CreateBlogForm from '@/components/CreateBlogForm'
+import Blog from '@/features/blogs/components/Blog'
+import CreateBlogForm from '@/features/blogs/components/CreateBlogForm'
 import Modal from '@/components/Modal'
 import Notification from '@/components/Notification'
 import Button from '@/components/ui/Button'
 import blogService from '@/services/blogs'
-import styles from '@/styles/app.module.css'
+import styles from './BlogsRoute.module.css'
 
 const BlogsRoute = () => {
   const [openModal, setOpenModal] = useState(false)
@@ -32,7 +32,7 @@ const BlogsRoute = () => {
       </div>
       <div className={styles.blogs}>
         {blogs.map((blog) => (
-          <div className={styles.blogContainer} key={blog.id}>
+          <div key={blog.id}>
             <Blog blog={blog} />
           </div>
         ))}

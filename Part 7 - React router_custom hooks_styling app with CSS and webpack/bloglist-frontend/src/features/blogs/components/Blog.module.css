@@ -1,0 +1,92 @@
+@import '@/styles/colors.css';
+@import './EngagementButton.module.css';
+
+:root {
+  --profileIconWidth: 50px;
+  --space: 0.5em;
+}
+
+.blog {
+  border-bottom: 1px solid var(--color-light-gray-1);
+  display: flex;
+  padding: 1em;
+}
+
+.profileIcon {
+  fill: var(--color-blue);
+  height: var(--profileIconWidth);
+  margin-right: var(--space);
+  width: var(--profileIconWidth);
+}
+
+.user {
+  font-weight: bold;
+}
+
+.username {
+  color: var(--color-gray);
+  margin-left: var(--space);
+}
+
+.content {
+  display: block;
+  margin: var(--space) 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.content h4,
+.content p {
+  margin-bottom: var(--space);
+}
+
+.url {
+  color: var(--color-blue);
+  text-decoration: none;
+}
+
+.url:hover,
+.url:focus {
+  text-decoration: underline;
+}
+
+.url:focus {
+  outline: none;
+}
+
+.engagement {
+  align-items: center;
+  display: flex;
+  height: var(--icon-dimensions);
+  position: relative;
+}
+
+.likeButton {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.commentButton {
+  left: 50%;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.deleteButton {
+  right: 0;
+  position: absolute;
+  top: 0;
+}
+
+.likeButton:focus-visible,
+.likeButton:hover {
+  color: var(--color-pink);
+}
+
+.deleteButton:focus-visible,
+.deleteButton:hover {
+  color: var(--color-red);
+}

@@ -1,0 +1,22 @@
+.headerSticky {
+  position: sticky;
+  top: 0;
+}
+
+.headerContainer {
+  align-items: center;
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-light-gray-1);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerContainer h2 {
+  margin-left: 1rem;
+}
+
+.blogs {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 import { useUserValue } from '@/providers/UserContext'
 import Logo from '@/assets/logo.svg?react'
-import LoginForm from '@/components/LoginForm'
+import LoginForm from '@/features/auth/components/LoginForm'
 import Notification from '@/components/Notification'
 import styles from './LoginRoute.module.css'
 

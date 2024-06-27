@@ -25,6 +25,10 @@
   outline: none;
 }
 
+.inputField input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-light-gray-1) inset;
+}
+
 .inputField label {
   color: var(--color-gray);
   left: 0;
