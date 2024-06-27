@@ -4,9 +4,8 @@
   border: none;
   border-radius: 0.8em;
   margin: auto;
-  overflow: hidden;
   padding: 1.5em;
-  position: relative;
+  position: fixed;
 }
 
 .button {
@@ -20,6 +19,11 @@
   right: 0;
   top: 0;
   width: var(--width);
+}
+
+.button:focus {
+  color: var(--color-light-blue);
+  outline: none;
 }
 
 .button:hover {

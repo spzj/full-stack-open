@@ -19,7 +19,7 @@ const CreateBlogForm = () => {
     onSuccess: (newBlog) => {
       newBlog.user = user
       queryClient.setQueryData(['blogs'], (blogs) => [...blogs, newBlog])
-      notifDispatch({ type: 'CREATE', payload: `${newBlog.title}` })
+      notifDispatch({ type: 'CREATE', payload: 'new blog' })
     },
     onError: (error) => {
       console.log(error)

@@ -4,28 +4,15 @@ import { useEffect, useRef } from 'react'
 import XIcon from '@/assets/x.svg?react'
 import styles from './Modal.module.css'
 
-const Modal = ({ openModal, closeModal, children }) => {
+const Modal = ({ isModalOpen, closeModal, children }) => {
   const ref = useRef()
 
   useEffect(() => {
-    if (openModal) {
-      ref.current?.showModal()
-      document.documentElement.style.overflow = 'hidden'
-      document.body.scroll = 'no'
-    } else {
-      ref.current?.close()
-      document.documentElement.style.overflow = 'scroll'
-      document.body.scroll = 'yes'
-    }
-  }, [openModal])
+    isModalOpen ? ref.current?.showModal() : ref.current?.close()
+  }, [isModalOpen])
 
   return (
-    <dialog
-      className={styles.modal}
-      role="dialog"
-      ref={ref}
-      onCancel={closeModal}
-    >
+    <dialog className={styles.modal} ref={ref} onCancel={closeModal}>
       <button
         aria-label="Close Modal"
         type="button"
@@ -40,7 +27,7 @@ const Modal = ({ openModal, closeModal, children }) => {
 }
 
 Modal.propTypes = {
-  openModal: PropTypes.bool.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 }

@@ -52,7 +52,7 @@ const Blog = ({ blog }) => {
       <div>
         <ProfileIcon className={styles.profileIcon} />
       </div>
-      <div>
+      <div className={styles.body}>
         <header>
           <span className={styles.user}>{blog.user.name}</span>
           <span className={styles.username}>@{blog.user.username}</span>

@@ -10,7 +10,7 @@ import blogService from '@/services/blogs'
 import styles from './BlogsRoute.module.css'
 
 const BlogsRoute = () => {
-  const [openModal, setOpenModal] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const blogsResult = useQuery({
     queryKey: ['blogs'],
     queryFn: () => blogService.getAll(),
@@ -24,20 +24,18 @@ const BlogsRoute = () => {
   const blogs = blogsResult.data.sort((a, b) => b.likes - a.likes)
   return (
     <div>
-      <div className={styles.headerSticky}>
-        <div className={styles.headerContainer}>
-          <h2>Blogs</h2>
-          <Button text="Create" onClick={() => setOpenModal(true)} />
-        </div>
+      <div className={styles.headerContainer}>
+        <h2>Blogs</h2>
+        <Button
+          className={styles.createButton}
+          text="Create"
+          onClick={() => setIsModalOpen(true)}
+        />
       </div>
-      <div className={styles.blogs}>
-        {blogs.map((blog) => (
-          <div key={blog.id}>
-            <Blog blog={blog} />
-          </div>
-        ))}
-      </div>
-      <Modal openModal={openModal} closeModal={() => setOpenModal(false)}>
+      {blogs.map((blog) => (
+        <Blog key={blog.id} blog={blog} />
+      ))}
+      <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
         <CreateBlogForm />
         <Notification />
       </Modal>

@@ -25,6 +25,7 @@
   outline: none;
 }
 
+/* Removes highlight after autofill */
 .inputField input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px var(--color-light-gray-1) inset;
 }
@@ -46,8 +47,12 @@
   transition: 0.2s ease all;
 }
 
-/* Minimised gray label when input contains value and not focused */
-.inputField input:valid:not(:focus) ~ label {
+/*
+Minimised gray label when input contains value and not focused.
+:valid is not used as input can be invalid even with text in it
+e.g. input type url and input value is not a valid url 
+*/
+.inputField input:not([value=""]):not(:focus) ~ label {
   color: var(--color-gray);
   font-size: 0.75em;
   transform: translateY(0.5em);

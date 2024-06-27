@@ -6,7 +6,7 @@ const notificationReducer = (state, action) => {
     case 'CLEAR':
       return ''
     case 'CREATE':
-      return `Created: ${action.payload}`
+      return `Created ${action.payload}`
     case 'ERROR':
       return `Error: ${action.payload}`
     default:
