@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query'
 import Blog from '@/features/blogs/components/Blog'
 import CreateBlogForm from '@/features/blogs/components/CreateBlogForm'
 import Modal from '@/components/Modal'
-import Notification from '@/components/Notification'
 import Button from '@/components/ui/Button'
 import blogService from '@/services/blogs'
 import styles from './BlogsRoute.module.css'
@@ -37,7 +36,6 @@ const BlogsRoute = () => {
       ))}
       <Modal isModalOpen={isModalOpen} closeModal={() => setIsModalOpen(false)}>
         <CreateBlogForm />
-        <Notification />
       </Modal>
     </div>
   )

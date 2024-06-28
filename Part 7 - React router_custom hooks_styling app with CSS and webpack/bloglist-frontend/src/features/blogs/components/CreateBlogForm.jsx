@@ -5,6 +5,7 @@ import { useUserValue } from '@/providers/UserContext'
 import blogService from '@/services/blogs'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
+import Notification from '@/components/Notification'
 import styles from './CreateBlogForm.module.css'
 
 const CreateBlogForm = () => {
@@ -68,6 +69,7 @@ const CreateBlogForm = () => {
         required
       />
       <Button text="Post" type="submit" />
+      <Notification />
     </form>
   )
 }

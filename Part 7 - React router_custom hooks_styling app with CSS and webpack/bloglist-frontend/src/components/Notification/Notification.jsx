@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import {
   useNotificationMessage,
   useNotificationDispatch,
@@ -6,6 +7,7 @@ import {
 import styles from './Notification.module.css'
 
 const Notification = () => {
+  const location = useLocation()
   const message = useNotificationMessage()
   const dispatch = useNotificationDispatch()
 
@@ -16,7 +18,15 @@ const Notification = () => {
     }
   }, [message, dispatch])
 
-  if (!message) return null
+  useEffect(() => {
+    return () => {
+      if (message) {
+        dispatch({ type: 'CLEAR' })
+      }
+    }
+  }, [location.pathname, message, dispatch])
+
+  //   if (!message) return null
 
   return (
     <div className={styles.container} role="alert">

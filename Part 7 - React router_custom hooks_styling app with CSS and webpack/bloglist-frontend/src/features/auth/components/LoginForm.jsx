@@ -2,6 +2,7 @@ import { useField } from '@/hooks/useField'
 import useAuth from '@/hooks/useAuth'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
+import Notification from '@/components/Notification'
 import styles from './LoginForm.module.css'
 
 const LoginForm = () => {
@@ -35,6 +36,7 @@ const LoginForm = () => {
         required
       />
       <Button className={styles.button} text="Log in" type="submit" />
+      <Notification />
     </form>
   )
 }

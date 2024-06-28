@@ -3,7 +3,8 @@
 .container {
   display: flex;
   font-weight: 500;
-  margin: 1em;
+  height: 1lh;
+  margin: 0.5em 1em;
   word-break: break-word;
 }
 

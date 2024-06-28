@@ -2,7 +2,6 @@ import { Navigate } from 'react-router-dom'
 import { useUserValue } from '@/providers/UserContext'
 import Logo from '@/assets/logo.svg?react'
 import LoginForm from '@/features/auth/components/LoginForm'
-import Notification from '@/components/Notification'
 import styles from './LoginRoute.module.css'
 
 const LoginRoute = () => {
@@ -18,7 +17,6 @@ const LoginRoute = () => {
         <Logo className={styles.logo} />
         <h2>Log in to Bloglist</h2>
         <LoginForm />
-        <Notification />
       </div>
     </div>
   )
