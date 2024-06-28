@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import Blog from '@/features/blogs/components/Blog'
 import CreateBlogForm from '@/features/blogs/components/CreateBlogForm'
 import Modal from '@/components/Modal'
-import Button from '@/components/ui/Button'
+import Button from '@/components/Button'
 import blogService from '@/services/blogs'
 import styles from './BlogsRoute.module.css'
 

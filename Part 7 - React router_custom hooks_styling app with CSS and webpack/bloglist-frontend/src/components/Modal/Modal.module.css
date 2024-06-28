@@ -21,7 +21,7 @@
   width: var(--width);
 }
 
-.button:focus {
+.button:focus-visible {
   color: var(--color-light-blue);
   outline: none;
 }

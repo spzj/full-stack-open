@@ -3,7 +3,7 @@ import BlogsIcon from '@/assets/blogs.svg?react'
 import Logo from '@/assets/logo.svg?react'
 import LogoutIcon from '@/assets/log-out.svg?react'
 import UsersIcon from '@/assets/users.svg?react'
-import NavItem from '@/components/ui/NavItem'
+import NavItem from '@/components/NavItem'
 import useAuth from '@/hooks/useAuth'
 import styles from './AppRoute.module.css'
 

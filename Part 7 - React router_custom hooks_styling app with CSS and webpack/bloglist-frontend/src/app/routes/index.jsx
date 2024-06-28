@@ -27,12 +27,12 @@ export const createRouter = () =>
           path: '',
           element: <AppRoute />,
           children: [
-            { path: '/app/blogs', element: <BlogsRoute /> },
+            { path: 'blogs', element: <BlogsRoute /> },
             {
-              path: '/app/users',
+              path: 'users',
               element: <UsersRoute />,
-              children: [{ path: '/app/users/:id', element: <UserRoute /> }],
             },
+            { path: 'users/:id', element: <UserRoute /> },
           ],
         },
       ],

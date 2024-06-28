@@ -1,6 +1,6 @@
 import { useNavigate, useRouteError } from 'react-router-dom'
 import HomeIcon from '@/assets/home.svg?react'
-import Button from '@/components/ui/button'
+import Button from '@/components/button'
 import styles from './ErrorRoute.module.css'
 
 const ErrorRoute = () => {

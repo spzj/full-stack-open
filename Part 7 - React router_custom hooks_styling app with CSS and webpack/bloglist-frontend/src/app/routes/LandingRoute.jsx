@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import Logo from '@/assets/logo.svg?react'
 import GithubIcon from '@/assets/github.svg?react'
 import HomeIcon from '@/assets/home.svg?react'
-import Button from '@/components/ui/Button'
+import Button from '@/components/Button'
 import styles from './LandingRoute.module.css'
 
 const LandingRoute = () => {
