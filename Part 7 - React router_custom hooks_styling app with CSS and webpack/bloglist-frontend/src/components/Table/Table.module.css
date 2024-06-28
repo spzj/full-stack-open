@@ -1,0 +1,42 @@
+@import '@/styles/colors.css';
+
+.table {
+  --padding: 1em;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+tr {
+  border-bottom: 1px solid var(--color-light-gray-1);
+  height: 2em;
+}
+
+.columnHeader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sortIcon,
+.sortIconAsc,
+.sortIconDesc {
+  color: var(--color-light-gray-2);
+  height: 22px;
+  width: 22px;
+}
+
+.sortIcon:hover,
+.sortIconAsc:hover,
+.sortIconDesc:hover {
+  color: var(--color-blue);
+}
+
+.sortIconAsc polyline:nth-child(1),
+.sortIconAsc line:nth-child(3) {
+  color: var(--color-blue);
+}
+
+.sortIconDesc polyline:nth-child(2),
+.sortIconDesc line:nth-child(4) {
+  color: var(--color-blue);
+}

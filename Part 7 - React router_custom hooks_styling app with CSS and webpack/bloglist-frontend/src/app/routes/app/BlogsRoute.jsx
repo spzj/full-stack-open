@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import Blog from '@/features/blogs/components/Blog'
 import CreateBlogForm from '@/features/blogs/components/CreateBlogForm'
+import Header from '@/components/Header'
 import Modal from '@/components/Modal'
 import Button from '@/components/Button'
 import blogService from '@/services/blogs'
@@ -23,14 +24,14 @@ const BlogsRoute = () => {
   const blogs = blogsResult.data.sort((a, b) => b.likes - a.likes)
   return (
     <div>
-      <div className={styles.headerContainer}>
+      <Header className={styles.header}>
         <h2>Blogs</h2>
         <Button
           className={styles.createButton}
           text="Create"
           onClick={() => setIsModalOpen(true)}
         />
-      </div>
+      </Header>
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
       ))}

@@ -1,0 +1,10 @@
+.table thead tr th:first-child,
+.table tbody tr td:first-child {
+  padding-left: 1em;
+  width: 40%;
+}
+
+.table thead tr th:last-child,
+.table tbody tr td:last-child {
+  width: 20%;
+}
