@@ -19,11 +19,7 @@ const Blog = ({ blog }) => {
     mutationFn: blogService.update,
     onSuccess: (updatedBlog) => {
       updatedBlog.user = blog.user
-      queryClient.setQueryData(blogKeys.all, (blogs) =>
-        blogs
-          .map((blog) => (blog.id === updatedBlog.id ? updatedBlog : blog))
-          .sort((a, b) => b.likes - a.likes)
-      )
+      queryClient.invalidateQueries(blogKeys.all)
     },
     onError: (error) => {
       console.log(error)

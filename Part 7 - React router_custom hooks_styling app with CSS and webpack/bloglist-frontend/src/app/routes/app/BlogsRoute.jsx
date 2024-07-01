@@ -16,6 +16,7 @@ const BlogsRoute = () => {
     queryKey: blogKeys.all,
     queryFn: () => blogService.getAll(),
     refetchOnWindowFocus: false,
+    retry: false,
   })
 
   if (blogsResult.isLoading) {

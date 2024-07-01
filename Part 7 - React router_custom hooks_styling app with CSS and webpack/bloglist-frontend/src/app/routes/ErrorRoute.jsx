@@ -6,6 +6,7 @@ import styles from './ErrorRoute.module.css'
 
 const ErrorRoute = () => {
   const error = useRouteError()
+  console.log(error)
   const navigate = useNavigate()
 
   return (
