@@ -7,7 +7,8 @@ import DeleteIcon from '@/assets/delete.svg?react'
 import HeartIcon from '@/assets/heart.svg?react'
 import ProfileIcon from '@/assets/profile.svg?react'
 import EngagementButton from './EngagementButton'
-import blogService from '@/services/blogs'
+import blogKeys from '../api/blogKeys'
+import blogService from '@/features/blogs/api/blogs'
 import styles from './Blog.module.css'
 
 const Blog = ({ blog }) => {
@@ -18,7 +19,7 @@ const Blog = ({ blog }) => {
     mutationFn: blogService.update,
     onSuccess: (updatedBlog) => {
       updatedBlog.user = blog.user
-      queryClient.setQueryData(['blogs'], (blogs) =>
+      queryClient.setQueryData(blogKeys.all, (blogs) =>
         blogs
           .map((blog) => (blog.id === updatedBlog.id ? updatedBlog : blog))
           .sort((a, b) => b.likes - a.likes)
@@ -31,7 +32,7 @@ const Blog = ({ blog }) => {
 
   const deleteBlogMutation = useMutation({
     mutationFn: blogService.remove,
-    onSuccess: () => queryClient.invalidateQueries(['blogs']),
+    onSuccess: () => queryClient.invalidateQueries(blogKeys.all),
     onError: (error) => {
       console.log(error)
     },
@@ -41,6 +42,7 @@ const Blog = ({ blog }) => {
     blog.likes++
     updateLikeMutation.mutate(blog)
   }
+
   const handleDeleteClick = () => {
     if (confirm('Delete blog post?')) {
       deleteBlogMutation.mutate(blog.id)

@@ -6,13 +6,14 @@ import CreateBlogForm from '@/features/blogs/components/CreateBlogForm'
 import Header from '@/components/Header'
 import Modal from '@/components/Modal'
 import Button from '@/components/Button'
-import blogService from '@/services/blogs'
+import blogKeys from '@/features/blogs/api/blogKeys'
+import blogService from '@/features/blogs/api/blogs'
 import styles from './BlogsRoute.module.css'
 
 const BlogsRoute = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const blogsResult = useQuery({
-    queryKey: ['blogs'],
+    queryKey: blogKeys.all,
     queryFn: () => blogService.getAll(),
     refetchOnWindowFocus: false,
   })

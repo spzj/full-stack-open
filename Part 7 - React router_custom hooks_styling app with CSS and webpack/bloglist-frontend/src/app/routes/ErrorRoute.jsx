@@ -1,6 +1,7 @@
 import { useNavigate, useRouteError } from 'react-router-dom'
 import HomeIcon from '@/assets/home.svg?react'
 import Button from '@/components/button'
+import { paths } from '@/app/routes'
 import styles from './ErrorRoute.module.css'
 
 const ErrorRoute = () => {
@@ -17,7 +18,7 @@ const ErrorRoute = () => {
         text="Go to Home"
         icon={HomeIcon}
         type="button"
-        onClick={() => navigate('/auth/login')}
+        onClick={() => navigate(paths.login)}
       />
     </div>
   )

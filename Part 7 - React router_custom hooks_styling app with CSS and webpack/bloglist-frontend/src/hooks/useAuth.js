@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom'
-import { useNotificationDispatch } from '../providers/NotificationContext'
-import { useUserDispatch } from '../providers/UserContext'
-import blogService from '../services/blogs'
-import loginService from '../services/login'
+import { useNotificationDispatch } from '@/providers/NotificationContext'
+import { useUserDispatch } from '@/providers/UserContext'
+import blogService from '@/features/blogs/api/blogs'
+import loginService from '@/features/auth/api/login'
+import { paths } from '@/app/routes'
 
 const storedUserKey = 'storedUser'
 
@@ -17,7 +18,7 @@ const useAuth = () => {
       window.localStorage.setItem(storedUserKey, JSON.stringify(user))
       blogService.setToken(user.token)
       userDispatch({ type: 'LOGIN', payload: user })
-      navigate('/app')
+      navigate(paths.app)
     } catch (error) {
       notifDispatch({ type: 'ERROR', payload: 'Wrong username or password' })
     }
@@ -26,7 +27,7 @@ const useAuth = () => {
   const logout = () => {
     window.localStorage.removeItem(storedUserKey)
     userDispatch({ type: 'LOGOUT' })
-    navigate('/auth/login')
+    navigate(paths.login)
   }
 
   return {

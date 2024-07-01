@@ -2,7 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useField } from '@/hooks/useField'
 import { useNotificationDispatch } from '@/providers/NotificationContext'
 import { useUserValue } from '@/providers/UserContext'
-import blogService from '@/services/blogs'
+import blogKeys from '../api/blogKeys'
+import blogService from '@/features/blogs/api/blogs'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import Notification from '@/components/Notification'
@@ -19,7 +20,7 @@ const CreateBlogForm = () => {
     mutationFn: blogService.create,
     onSuccess: (newBlog) => {
       newBlog.user = user
-      queryClient.setQueryData(['blogs'], (blogs) => [...blogs, newBlog])
+      queryClient.setQueryData(blogKeys.all, (blogs) => [...blogs, newBlog])
       notifDispatch({ type: 'CREATE', payload: 'new blog' })
     },
     onError: (error) => {

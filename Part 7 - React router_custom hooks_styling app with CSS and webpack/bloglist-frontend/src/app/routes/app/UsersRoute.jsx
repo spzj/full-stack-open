@@ -2,12 +2,14 @@ import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import Header from '@/components/Header/Header'
 import Table from '@/components/Table'
-import userService from '@/services/users'
+import userKeys from '@/features/users/api/userKeys'
+import userService from '@/features/users/api/users'
+import { paths } from '@/app/routes'
 import styles from './UsersRoute.module.css'
 
 const UsersRoute = () => {
   const usersResult = useQuery({
-    queryKey: ['users'],
+    queryKey: userKeys.all,
     queryFn: () => userService.getAll(),
     refetchOnWindowFocus: false,
   })
@@ -22,7 +24,7 @@ const UsersRoute = () => {
     ...d,
   }))
   const headers = ['name', 'username', 'blogs']
-  const rowOnClick = (user) => navigate(`/app/users/${user.id}`)
+  const rowOnClick = (user) => navigate(`${paths.users}/${user.id}`)
 
   return (
     <div>
