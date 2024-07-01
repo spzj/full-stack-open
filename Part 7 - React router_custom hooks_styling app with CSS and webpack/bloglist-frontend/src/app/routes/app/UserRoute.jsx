@@ -24,7 +24,10 @@ const UserRoute = () => {
 
   const user = userResult.data
   const blogs = user.blogs
-    .map((b) => ({ ...b, user: { name: user.name, username: user.username } }))
+    .map((b) => ({
+      ...b,
+      user: { name: user.name, username: user.username, id: user.id },
+    }))
     .sort((a, b) => b.likes - a.likes)
 
   return (

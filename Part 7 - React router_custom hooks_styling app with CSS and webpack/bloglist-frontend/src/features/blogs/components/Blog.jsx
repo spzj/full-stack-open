@@ -1,11 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+import useClickHandler from '@/hooks/useClickHandler'
 import { useUserValue } from '@/providers/UserContext'
 import CommentIcon from '@/assets/comments.svg?react'
 import DeleteIcon from '@/assets/delete.svg?react'
 import HeartIcon from '@/assets/heart.svg?react'
 import ProfileIcon from '@/assets/profile.svg?react'
+import { paths } from '@/app/routes'
 import EngagementButton from './EngagementButton'
 import blogKeys from '../api/blogKeys'
 import blogService from '@/features/blogs/api/blogs'
@@ -14,6 +17,8 @@ import styles from './Blog.module.css'
 const Blog = ({ blog }) => {
   const queryClient = useQueryClient()
   const user = useUserValue()
+  const navigate = useNavigate()
+  const params = useParams()
 
   const updateLikeMutation = useMutation({
     mutationFn: blogService.update,
@@ -34,6 +39,32 @@ const Blog = ({ blog }) => {
     },
   })
 
+  const handleBlogClick = (event) => {
+    // Elements that do not navigate to individual blog view on click
+    if (
+      event.target.closest(`.${styles.profileIcon}`) ||
+      event.target.closest(`.${styles.user}`) ||
+      event.target.closest(`.${styles.username}`) ||
+      event.target.closest(`.${styles.url}`) ||
+      event.target.closest(`.${styles.likeButton}`) ||
+      event.target.closest(`.${styles.deleteButton}`)
+    )
+      return
+
+    if (!params.id || params.id !== blog.id) {
+      navigate(paths.blogs + `/${blog.id}`)
+    }
+  }
+
+  const { handleMouseDown, handleMouseMove, handleMouseUp } =
+    useClickHandler(handleBlogClick)
+
+  const handleUserClick = () => {
+    if (!params.id || params.id !== blog.user.id) {
+      navigate(paths.users + `/${blog.user.id}`)
+    }
+  }
+
   const handleLikeClick = () => {
     blog.likes++
     updateLikeMutation.mutate(blog)
@@ -46,14 +77,23 @@ const Blog = ({ blog }) => {
   }
 
   return (
-    <article className={styles.blog}>
+    <article
+      className={styles.blog}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+    >
       <div>
-        <ProfileIcon className={styles.profileIcon} />
+        <ProfileIcon className={styles.profileIcon} onClick={handleUserClick} />
       </div>
       <div className={styles.body}>
         <header>
-          <span className={styles.user}>{blog.user.name}</span>
-          <span className={styles.username}>@{blog.user.username}</span>
+          <span className={styles.user} onClick={handleUserClick}>
+            {blog.user.name}
+          </span>
+          <span className={styles.username} onClick={handleUserClick}>
+            @{blog.user.username}
+          </span>
         </header>
         <div className={styles.content}>
           <h4>{blog.title}</h4>

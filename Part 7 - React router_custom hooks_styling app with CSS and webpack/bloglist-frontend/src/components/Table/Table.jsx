@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 
+import useClickHandler from '@/hooks/useClickHandler'
 import SortIcon from '@/assets/sort.svg?react'
 import styles from './Table.module.css'
 
 const Table = ({ data, headers, rowOnClick, className, ...rest }) => {
+  const { handleMouseDown, handleMouseMove, handleMouseUp } =
+    useClickHandler(rowOnClick)
   const [tableData, setTableData] = useState(data)
   const [sortField, setSortField] = useState('')
   const [isSortAsc, setIsSortAsc] = useState(true)
@@ -30,32 +33,6 @@ const Table = ({ data, headers, rowOnClick, className, ...rest }) => {
 
   const capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1)
-  }
-
-  /* Differentiates between a drag (e.g. to copy) and click*/
-  let startX = 0
-  let startY = 0
-  let isClick = false
-
-  const handleMouseDown = (event) => {
-    startX = event.clientX
-    startY = event.clientY
-    isClick = true
-  }
-
-  const handleMouseMove = (event) => {
-    if (
-      Math.abs(event.clientX - startX) > 3 ||
-      Math.abs(event.clientY - startY) > 3
-    ) {
-      isClick = false
-    }
-  }
-
-  const handleMouseUp = (d) => {
-    if (isClick) {
-      rowOnClick(d)
-    }
   }
 
   return (

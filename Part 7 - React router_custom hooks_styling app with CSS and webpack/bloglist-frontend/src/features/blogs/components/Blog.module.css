@@ -32,6 +32,11 @@
   margin-left: var(--space);
 }
 
+.user:hover,
+ .username:hover {
+  text-decoration: underline;
+}
+
 .content {
   margin: var(--space) 0 calc(2 * var(--space)) 0;
   word-break: break-word;
