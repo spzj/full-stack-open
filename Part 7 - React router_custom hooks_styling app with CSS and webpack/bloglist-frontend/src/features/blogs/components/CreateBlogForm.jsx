@@ -35,7 +35,6 @@ const CreateBlogForm = () => {
       title: title.value,
       author: author.value,
       url: url.value,
-      likes: 0,
     }
 
     newBlogMutation.mutate(blogDetails)

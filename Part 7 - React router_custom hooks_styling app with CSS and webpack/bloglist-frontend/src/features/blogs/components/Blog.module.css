@@ -33,8 +33,17 @@
 }
 
 .user:hover,
- .username:hover {
+.username:hover {
   text-decoration: underline;
+}
+
+.separator {
+  color: var(--color-gray);
+  margin-inline: var(--space);
+}
+
+.timestamp {
+  color: var(--color-gray);
 }
 
 .content {

@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query'
 import blogKeys from '@/features/blogs/api/blogKeys'
 import blogService from '@/features/blogs/api/blogs'
 import Blog from '@/features/blogs/components/Blog'
+import Comment from '@/features/blogs/components/Comment'
+import CommentForm from '@/features/blogs/components/CommentForm'
 
 const BlogRoute = () => {
   const { id } = useParams()
@@ -24,7 +26,15 @@ const BlogRoute = () => {
 
   const blog = blogResult.data
 
-  return <Blog blog={blog} />
+  return (
+    <div>
+      <Blog blog={blog} />
+      <CommentForm />
+      {blog.comments.map((c) => (
+        <Comment key={c.id} comment={c} />
+      ))}
+    </div>
+  )
 }
 
 export default BlogRoute

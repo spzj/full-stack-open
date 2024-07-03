@@ -12,6 +12,7 @@ import { paths } from '@/app/routes'
 import EngagementButton from './EngagementButton'
 import blogKeys from '../api/blogKeys'
 import blogService from '@/features/blogs/api/blogs'
+import { formatTimestamp } from '@/utils/format'
 import styles from './Blog.module.css'
 
 const Blog = ({ blog }) => {
@@ -22,10 +23,7 @@ const Blog = ({ blog }) => {
 
   const updateLikeMutation = useMutation({
     mutationFn: blogService.update,
-    onSuccess: (updatedBlog) => {
-      updatedBlog.user = blog.user
-      queryClient.invalidateQueries(blogKeys.all)
-    },
+    onSuccess: () => queryClient.invalidateQueries(blogKeys.all),
     onError: (error) => {
       console.log(error)
     },
@@ -67,7 +65,7 @@ const Blog = ({ blog }) => {
 
   const handleLikeClick = () => {
     blog.likes++
-    updateLikeMutation.mutate(blog)
+    updateLikeMutation.mutate({ likes: blog.likes, id: blog.id })
   }
 
   const handleDeleteClick = () => {
@@ -94,6 +92,10 @@ const Blog = ({ blog }) => {
           <span className={styles.username} onClick={handleUserClick}>
             @{blog.user.username}
           </span>
+          <span className={styles.separator}>·</span>
+          <span className={styles.timestamp}>
+            {formatTimestamp(blog.timestamp)}
+          </span>
         </header>
         <div className={styles.content}>
           <h4>{blog.title}</h4>
@@ -113,7 +115,7 @@ const Blog = ({ blog }) => {
             className={styles.commentButton}
             icon={CommentIcon}
             onClick={() => {}}
-            count={0}
+            count={blog.comments.length}
           />
           {user.username === blog.user.username && (
             <EngagementButton
