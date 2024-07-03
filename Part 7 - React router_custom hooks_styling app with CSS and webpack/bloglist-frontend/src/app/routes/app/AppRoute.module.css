@@ -1,4 +1,5 @@
 @import '@/styles/colors.css';
+@value sm from '@/styles/breakpoints.css';
 
 .container {
   display: flex;
@@ -21,4 +22,46 @@
   border-right: 1px solid var(--color-light-gray-1);
   height: 100vh;
   width: 600px;
+}
+
+@media (max-width: 850px) {
+  .navBar {
+    width: 20%;
+  }
+
+  .content {
+    width: 80%;
+  }
+}
+
+@media (sm) {
+  .navBar span {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    display: block;
+    width: 100%;
+  }
+
+  .navBar {
+    background-color: var(--color-white);
+    border-top: 1px solid var(--color-light-gray-1);
+    bottom: 0;
+    box-sizing: border-box;
+    flex-direction: row;
+    height: 50px;
+    justify-content: space-between;
+    position: fixed;
+    top: auto;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .content {
+    box-sizing: border-box;
+    width: 100%;
+  }
 }

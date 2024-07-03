@@ -1,7 +1,8 @@
 @import '@/styles/colors.css';
+@value sm from '@/styles/breakpoints.css';
 
 :root {
---icon-dimensions: 20px;
+  --icon-dimensions: 20px;
 }
 
 .button {
@@ -30,4 +31,10 @@
 .icon {
   height: var(--icon-dimensions);
   width: var(--icon-dimensions);
+}
+
+@media (sm) {
+  :root {
+    --icon-dimensions: 16px;
+  }
 }

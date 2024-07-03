@@ -1,5 +1,6 @@
 @import '@/styles/colors.css';
 @import './EngagementButton.module.css';
+@value sm from '@/styles/breakpoints.css';
 
 :root {
   --profileIconWidth: 50px;
@@ -104,4 +105,11 @@
 .deleteButton:focus-visible,
 .deleteButton:hover {
   color: var(--color-red);
+}
+
+@media (sm) {
+  :root {
+    --profileIconWidth: 40px;
+    font-size: 0.8em;
+  }
 }
