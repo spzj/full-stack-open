@@ -11,8 +11,6 @@ As the applications are hosted on [Render]'s free instance that spins down after
 | Phonebook | Search, Create, Read, Update and Delete contacts. MERN stack. | [Frontend][PB-FE], [Backend][PB-BE] | [Demo][PB-D] |
 | Countries | Search for a country's information and 3-day weather forecast, fetched from REST APIs. | [Frontend][C-FE], [Backend][C-BE] | [Demo][C-D]|
 | Anecdotes | View and vote for random software engineering anecdotes. | [Code][A-C] | |
-| Unicafe | View and give customer feedback for a cafe. | [Code][UC-C] | |
-| Courseinfo | View course statistics (non-interactive). | [Code][CI-C] | |
 
 ## Tech Stack
 
@@ -34,13 +32,13 @@ As the applications are hosted on [Render]'s free instance that spins down after
 
 ## [Bloglist][B-FE]
 
-A MERN stack application to share blogs as a user, styled with plain css.
+A MERN stack application with token-based authentication to share blogs as a user, styled with CSS Modules. State management with React Query and Context, and app routing with React Router.
 
 <img src="./public/bloglist_demo.gif" alt="Bloglist Demo">
 
 ## [Countries][C-FE]
 
-Search for a country's information and weather forecast for the next 3 days, styled with plain css.
+Search for a country's information and weather forecast for the next 3 days, styled with CSS Modules.
 
 <img src="./public/countries_demo.gif" alt="Countries Demo">
 
@@ -50,17 +48,15 @@ A MERN stack application to manage your contacts, styled with Tailwind CSS.
 
 <img src="./public/phonebook_demo.gif" alt="Phonebook Demo">
 
-[A-C]: https://github.com/spzj/full-stack-open/tree/main/Part%201%20-%20Introduction%20to%20React/anecdotes
+[A-C]: https://github.com/spzj/full-stack-open/tree/main/Part%206%20-%20Advanced%20state%20management/query-anecdotes
 [B-B]: https://github.com/spzj/full-stack-open/tree/main/Part%204%20-%20Testing%20Express%20servers_user%20administration/bloglist
 [B-D]: https://bloglist-7jd4.onrender.com/
-[B-FE]: https://github.com/spzj/full-stack-open/tree/main/Part%205%20-%20Testing%20React%20apps/bloglist-frontend
+[B-FE]: https://github.com/spzj/full-stack-open/tree/main/Part%207%20-%20React%20router_custom%20hooks_styling%20app%20with%20CSS%20and%20webpack/bloglist-frontend
 [C-FE]: https://github.com/spzj/full-stack-open/tree/main/Part%202%20-%20Communicating%20with%20server/countries
 [C-BE]: https://github.com/spzj/full-stack-open/tree/main/Part%202%20-%20Communicating%20with%20server/countries-backend
 [C-D]: https://countries-c2ak.onrender.com/
-[CI-C]: https://github.com/spzj/full-stack-open/tree/main/Part%202%20-%20Communicating%20with%20server/courseinfo
 [FSO]: https://fullstackopen.com/en/
 [PB-FE]: https://github.com/spzj/full-stack-open/tree/main/Part%202%20-%20Communicating%20with%20server/phonebook
 [PB-BE]: https://github.com/spzj/full-stack-open/tree/main/Part%203%20-%20Programming%20a%20server%20with%20NodeJS%20and%20Express/phonebook-backend
 [PB-D]: https://phonebook-backend-1rqy.onrender.com
 [Render]: https://render.com/
-[UC-C]: https://github.com/spzj/full-stack-open/tree/main/Part%201%20-%20Introduction%20to%20React/unicafe
