@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom'
+import { Navigate, Link } from 'react-router-dom'
 import { useUserValue } from '@/providers/UserContext'
 import Logo from '@/assets/logo.svg?react'
 import LoginForm from '@/features/auth/components/LoginForm'
@@ -18,6 +18,9 @@ const LoginRoute = () => {
         <Logo className={styles.logo} />
         <h2>Log in to Bloglist</h2>
         <LoginForm />
+        <Link className={styles.link} to={paths.register}>
+          Sign up for new account
+        </Link>
       </div>
     </div>
   )

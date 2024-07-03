@@ -5,20 +5,34 @@ import Input from '@/components/Input'
 import Notification from '@/components/Notification'
 import styles from './Form.module.css'
 
-const LoginForm = () => {
+const RegisterForm = () => {
+  const name = useField('text')
   const password = useField('password')
   const username = useField('text')
   const auth = useAuth()
 
-  const attemptLogin = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    await auth.login({ username: username.value, password: password.value })
-    username.reset()
+    await auth.register({
+      name: name.value,
+      username: username.value,
+      password: password.value,
+    })
+    name.reset()
     password.reset()
+    username.reset()
   }
 
   return (
-    <form className={styles.form} onSubmit={attemptLogin}>
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <Input
+        label="Name"
+        type={name.type}
+        value={name.value}
+        onChange={name.onChange}
+        autoComplete="name"
+        required
+      />
       <Input
         label="Username"
         type={username.type}
@@ -32,13 +46,13 @@ const LoginForm = () => {
         type={password.type}
         value={password.value}
         onChange={password.onChange}
-        autoComplete="current-password"
+        autoComplete="new-password"
         required
       />
-      <Button className={styles.button} text="Log in" type="submit" />
+      <Button className={styles.button} text="Create Account" type="submit" />
       <Notification className={styles.notification} />
     </form>
   )
 }
 
-export default LoginForm
+export default RegisterForm

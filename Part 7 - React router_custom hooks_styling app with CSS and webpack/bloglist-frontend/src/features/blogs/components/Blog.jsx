@@ -100,7 +100,12 @@ const Blog = ({ blog }) => {
         <div className={styles.content}>
           <h4>{blog.title}</h4>
           <p>{blog.author}</p>
-          <a className={styles.url} href={blog.url}>
+          <a
+            className={styles.url}
+            href={blog.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span>{blog.url}</span>
           </a>
         </div>

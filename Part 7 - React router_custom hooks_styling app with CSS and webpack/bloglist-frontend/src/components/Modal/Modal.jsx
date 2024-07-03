@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import XIcon from '@/assets/x.svg?react'
 import styles from './Modal.module.css'
 
-const Modal = ({ isModalOpen, closeModal, children }) => {
+const Modal = ({ isModalOpen, closeModal, children, className, ...rest }) => {
   const ref = useRef()
 
   useEffect(() => {
@@ -12,7 +12,12 @@ const Modal = ({ isModalOpen, closeModal, children }) => {
   }, [isModalOpen])
 
   return (
-    <dialog className={styles.modal} ref={ref} onCancel={closeModal}>
+    <dialog
+      className={`${styles.modal} ${className}`}
+      ref={ref}
+      onCancel={closeModal}
+      {...rest}
+    >
       <button
         aria-label="Close Modal"
         type="button"
@@ -30,6 +35,7 @@ Modal.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 }
 
 export default Modal

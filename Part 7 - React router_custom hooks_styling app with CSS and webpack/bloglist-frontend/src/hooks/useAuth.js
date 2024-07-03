@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useNotificationDispatch } from '@/providers/NotificationContext'
 import { useUserDispatch } from '@/providers/UserContext'
 import blogService from '@/features/blogs/api/blogs'
-import loginService from '@/features/auth/api/login'
+import authService from '@/features/auth/api/auth'
 import { paths } from '@/app/routes'
 
 const storedUserKey = 'storedUser'
@@ -14,7 +14,7 @@ const useAuth = () => {
 
   const login = async (loginDetails) => {
     try {
-      const user = await loginService.login(loginDetails)
+      const user = await authService.login(loginDetails)
       window.localStorage.setItem(storedUserKey, JSON.stringify(user))
       blogService.setToken(user.token)
       userDispatch({ type: 'LOGIN', payload: user })
@@ -30,9 +30,20 @@ const useAuth = () => {
     navigate(paths.login)
   }
 
+  const register = async (registerDetails) => {
+    try {
+      await authService.register(registerDetails)
+      notifDispatch({ type: 'CREATE', payload: 'new account' })
+      navigate(paths.login)
+    } catch (error) {
+      notifDispatch({ type: 'ERROR', payload: error.response.data.error })
+    }
+  }
+
   return {
     login,
     logout,
+    register,
   }
 }
 

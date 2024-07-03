@@ -11,3 +11,7 @@
   margin: 0.5em var(--margin-horizontal);
   width: calc(100% - 2 * var(--margin-horizontal));
 }
+
+.notification {
+  min-height: 3lh;
+}

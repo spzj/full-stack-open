@@ -6,6 +6,7 @@ import BlogRoute from './app/BlogRoute'
 import BlogsRoute from './app/BlogsRoute'
 import LoginRoute from './auth/LoginRoute'
 import ProtectedRoutes from './app/ProtectedRoutes'
+import RegisterRoute from './auth/RegisterRoute'
 import UserRoute from './app/UserRoute'
 import UsersRoute from './app/UsersRoute'
 
@@ -17,6 +18,7 @@ export const paths = {
     'https://github.com/spzj/full-stack-open/tree/main/Part%207%20-%20React%20router_custom%20hooks_styling%20app%20with%20CSS%20and%20webpack/bloglist-frontend',
   landing: '/',
   login: '/auth/login',
+  register: '/auth/register',
   users: '/app/users',
   user: '/app/users/:id',
 }
@@ -31,6 +33,10 @@ export const createRouter = () =>
     {
       path: paths.login,
       element: <LoginRoute />,
+    },
+    {
+      path: paths.register,
+      element: <RegisterRoute />,
     },
     {
       path: paths.app,
