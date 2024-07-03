@@ -1,24 +1,39 @@
 const mongoose = require('mongoose')
 
-const blogSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  author: { type: String },
-  url: { type: String, required: true },
-  likes: { type: Number, default: 0 },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+const blogSchema = new mongoose.Schema(
+  {
+    title: { type: String, trim: true, required: true },
+    author: { type: String, trim: true, required: true },
+    url: { type: String, trim: true, required: true },
+    likes: { type: Number, default: 0 },
+    timestamp: { type: Date, default: Date.now },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+      },
+    ],
   },
-})
-
-mongoose.SchemaTypes.String.set('trim', true)
-
-blogSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
-  },
-})
+  {
+    toJSON: {
+      transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id.toString()
+        delete returnedObject._id
+        delete returnedObject.__v
+      },
+    },
+    toObject: {
+      transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id.toString()
+        delete returnedObject._id
+        delete returnedObject.__v
+      },
+    },
+  }
+)
 
 module.exports = mongoose.model('Blog', blogSchema)

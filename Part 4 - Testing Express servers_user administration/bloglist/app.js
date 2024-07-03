@@ -13,6 +13,7 @@ const setup = require('./utils/setup')
 const mongoose = require('mongoose')
 
 mongoose.set('strictQuery', false)
+mongoose.pluralize(null)
 
 logger.info('connecting to MongoDB')
 
