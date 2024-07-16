@@ -42,7 +42,6 @@ describe('blog api tests', () => {
     test('succeeds with a valid id', async () => {
       const blogsAtStart = await helper.blogsInDb()
       const blogToView = blogsAtStart[0]
-      blogToView.user = blogToView.user.toString()
 
       const response = await api
         .get(`${routePath}/${blogToView.id}`)
@@ -52,14 +51,14 @@ describe('blog api tests', () => {
       assert.deepStrictEqual(response.body, blogToView)
     })
 
-    test('fails with statuscode 404 if blog does not exist', async () => {
-      const validNonexistingId = await helper.nonExistingId()
-      await api.get(`${routePath}/${validNonexistingId}`).expect(404)
-    })
-
     test('fails with statuscode 400 if id is invalid', async () => {
       const invalidId = '123'
       await api.get(`${routePath}/${invalidId}`).expect(400)
+    })
+
+    test('fails with statuscode 404 if blog does not exist', async () => {
+      const validNonexistingId = await helper.nonExistingId()
+      await api.get(`${routePath}/${validNonexistingId}`).expect(404)
     })
   })
 
@@ -258,7 +257,7 @@ describe('blog api tests', () => {
       assert.strictEqual(blogsAtEnd.length, blogsAtStart.length)
     })
 
-    test('fails with statuscode 404 if id is invalid', async () => {
+    test('fails with statuscode 404 if blog does not exist', async () => {
       const blogsAtStart = await helper.blogsInDb()
       const validNonexistingId = await helper.nonExistingId()
 
@@ -273,6 +272,85 @@ describe('blog api tests', () => {
 
       assert(!titles.includes(helper.newBlog.title))
       assert.strictEqual(blogsAtEnd.length, blogsAtStart.length)
+    })
+  })
+
+  describe('when adding a new comment', () => {
+    test('succeeds with statuscode 200 if id is valid', async () => {
+      const blogsAtStart = await helper.blogsInDb()
+      const response = await api
+        .post(`${routePath}/${blogsAtStart[0].id}/comments`)
+        .send(helper.newComment)
+        .set({ Authorization: `Bearer ${TOKEN}` })
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+
+      const blogsAtEnd = await helper.blogsInDb()
+      assert.strictEqual(blogsAtEnd.length, blogsAtStart.length)
+      assert.strictEqual(
+        blogsAtEnd[0].comments.length,
+        blogsAtStart[0].comments.length + 1
+      )
+      assert.strictEqual(
+        response.body.comments[0],
+        blogsAtEnd[0].comments[0].id.toString('hex')
+      )
+    })
+
+    test('fails with statuscode 400 if id is invalid', async () => {
+      const blogsAtStart = await helper.blogsInDb()
+      const invalidId = '123'
+
+      await api
+        .post(`${routePath}/${invalidId}/comments`)
+        .send(helper.newComment)
+        .set({ Authorization: `Bearer ${TOKEN}` })
+        .expect(400)
+
+      const blogsAtEnd = await helper.blogsInDb()
+      blogsAtEnd.forEach((blog, index) => {
+        assert.strictEqual(
+          blogsAtStart[index].comments.length,
+          blog.comments.length
+        )
+      })
+    })
+
+    test('fails with statuscode 401 if token is invalid', async () => {
+      const blogsAtStart = await helper.blogsInDb()
+
+      await api
+        .post(`${routePath}/${blogsAtStart[0].id}/comments`)
+        .send(helper.newComment)
+        .set({ Authorization: 'Bearer invalidtokenstring' })
+        .expect(401)
+
+      const blogsAtEnd = await helper.blogsInDb()
+      blogsAtEnd.forEach((blog, index) => {
+        assert.strictEqual(
+          blogsAtStart[index].comments.length,
+          blog.comments.length
+        )
+      })
+    })
+
+    test('fails with statuscode 404 if blog does not exist', async () => {
+      const blogsAtStart = await helper.blogsInDb()
+      const validNonexistingId = await helper.nonExistingId()
+
+      await api
+        .post(`${routePath}/${validNonexistingId}/comments`)
+        .send(helper.newComment)
+        .set({ Authorization: `Bearer ${TOKEN}` })
+        .expect(404)
+
+      const blogsAtEnd = await helper.blogsInDb()
+      blogsAtEnd.forEach((blog, index) => {
+        assert.strictEqual(
+          blogsAtStart[index].comments.length,
+          blog.comments.length
+        )
+      })
     })
   })
 })

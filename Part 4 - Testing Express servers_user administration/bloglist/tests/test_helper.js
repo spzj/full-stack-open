@@ -1,7 +1,7 @@
 const Blog = require('../models/blog')
 const User = require('../models/user')
 
-// passwords are 123 for both
+// passwords is 123 for both
 const initialUsers = [
   {
     username: 'testuser1',
@@ -24,7 +24,7 @@ const newUser = {
 }
 
 const usersInDb = async () => {
-  const users = await User.find({})
+  const users = await User.find({}).populate('blogs')
   return users.map((user) => user.toJSON())
 }
 
@@ -50,6 +50,10 @@ const newBlog = {
   likes: 12,
 }
 
+const newComment = {
+  content: 'what a great blog!',
+}
+
 const nonExistingId = async () => {
   const blog = new Blog({
     title: 'Temporary blog',
@@ -65,8 +69,12 @@ const nonExistingId = async () => {
 }
 
 const blogsInDb = async () => {
-  const blogs = await Blog.find({})
-  return blogs.map((blog) => blog.toJSON())
+  const blogs = await Blog.find({}).populate('user', 'username name')
+  return blogs.map((blog) => {
+    const blogObject = blog.toJSON()
+    blogObject.timestamp = blogObject.timestamp.toISOString()
+    return blogObject
+  })
 }
 
 module.exports = {
@@ -75,6 +83,7 @@ module.exports = {
   usersInDb,
   initialBlogs,
   newBlog,
+  newComment,
   nonExistingId,
   blogsInDb,
 }
